@@ -7,10 +7,8 @@ import { Articulo } from 'src/app/Modelos/articulo';
 import * as $ from 'jquery';
 import { VencimientoArticulo } from 'src/app/Modelos/vencimiento-articulo';
 
-//pendiente por corregir, debemos modificar la agregacion de las fechas de vencimiento, el Id no puede repetirse
-//y el Id debe coincidir con el codigo de barras del producto. para el momento de eliminarse pueda elimninarse las fechas asociadas
 
-
+ 
 @Component({
   selector: 'app-inventario',
   templateUrl: './inventario.component.html',
