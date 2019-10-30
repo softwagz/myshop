@@ -1,0 +1,368 @@
+<div class="container-fluid">
+    <div class="row menu">
+        <div class="col-lg-5">
+            <ul style="list-style: none; display: inline-flex; background: rgba(0, 0, 0, 0.486);">
+                <li>
+                    <a class="badge" href="#" routerLink="/principal">
+                        <i class="fas fa-home fa-2x"></i><br />
+                        <span class="badge badge-dark">Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/ventas">
+                        <i class="fas fa-comments-dollar fa-2x"></i><br />
+                        <span class="badge badge-dark">Ventas</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/clientes">
+                        <i class="fas fa-users fa-2x"></i>
+                        <br />
+                        <span class="badge badge-dark">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/facturas">
+                        <i class="far fa-clipboard fa-2x"></i> <br />
+                        <span class="badge badge-dark">Facturas</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/inventario">
+                        <i class="fas fa-door-open fa-2x"></i> <br />
+                        <span class="badge badge-dark">Inventario</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/proveedores">
+                        <i class="fas fa-shipping-fast fa-2x"></i> <br />
+                        <span class="badge badge-dark">Proveedores</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/login" (click)="singOut()">
+                        <i class="fas fa-power-off fa-2x"></i> <br />
+                        <span class="badge badge-dark">Salir</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-7 text-center">
+            <h2>Inventario de Productos</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card" id="formularioArticulos">
+                <div class="text-center">
+                    <h3>Productos</h3>
+                    <input type="file" name="archivo" accept="video/*" id="archivo">
+                </div>
+                <div class="card-body">
+                    <form autocomplete="off" #formularioArticulos="ngForm"
+                        (submit)="registerArticle(formularioArticulos)">
+                        <div class="form-group">
+                            <input class="form-control" [(ngModel)]="articulo.codigo" type="text" name="codigo"
+                                placeholder="codigo">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" [(ngModel)]="articulo.descripcion" type="text"
+                                name="descripcion" placeholder="descripcion">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" [(ngModel)]="articulo.presentacion" type="text"
+                                name="presentacion" placeholder="presentacion">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" [(ngModel)]="articulo.precio" type="text" name="precio"
+                                placeholder="Precio de Costo/unidad">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" [(ngModel)]="articulo.precioVenta" type="text" name="precioVenta"
+                                placeholder="Precio de Venta/unidad">
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label"> Descuento </label>
+                            <div class="col-sm-6">
+                                <input class="form-control" type="text" name="descuento" placeholder="Descuento en %"
+                                    [(ngModel)]="articulo.descuento">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col">
+                                    <input class="form-control" type="text" [(ngModel)]="articulo.stockMinimo"
+                                        name="stockMinimo" placeholder="Stock Min.">
+                                </div>
+                                <div class="col">
+                                    <input class="form-control" type="text" [(ngModel)]="articulo.stockMaximo"
+                                        name="stockMaximo" placeholder="Stock Max.">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for=""> Fecha de Vencimiento </label>
+                            <input type="date" name="fecha" class="form-control" [(ngModel)]="vencimiento.fecha">
+                            <br />
+                            <input type="text" class="form-control" name="cantidad" placeholder="cantidad"
+                                [(ngModel)]="vencimiento.cantidad">
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" [(ngModel)]="articulo.iva" checked="false"
+                                    data-md-icheck (change)="excentoIVA($event)" type="checkbox" name="iva" id="iva">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Excento de IVA
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-warning btn-block"
+                                style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Registrar
+                                Producto</button>
+                            <button type="button" class="btn btn-dark btn-block"
+                                (click)="clearForm(formularioArticulos)">Limpiar</button>
+                        </div>
+
+
+
+                    </form>
+
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-8">
+            <nav class="navbar navbar-light bg-light">
+                <span class="nav-item"><strong>Lista de Productos</strong></span>
+                <form #formularioBusqueda="ngForm" autocomplete="off" class="form-inline ml-auto">
+                    <input name="search" (click)="clearSearch()" (keyup)="searchArticle(search)" [(ngModel)]="search"
+                        class="form-control mr-sm-2" type="search" placeholder="codigo" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
+                </form>
+            </nav>
+            <table class="table table-light table-striped table-hover text-center">
+                <thead>
+                    <th>codigo</th>
+                    <th>Descripcion</th>
+                    <th>Presentacion</th>
+                    <th>Precio ($)</th>
+                </thead>
+                <tbody *ngIf="!searchState">
+                    <tr *ngFor="let datos of dataArticulo">
+                        <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">{{datos.codigo}}
+                        </td>
+                        <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">
+                            {{datos.descripcion}}</td>
+                        <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">
+                            {{datos.presentacion}}</td>
+                        <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">
+                            {{datos.precio|currency}}
+                        </td>
+
+                    </tr>
+
+                </tbody>
+                <tbody *ngIf="searchState">
+                    <tr *ngFor="let datos of searchData">
+                        <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">{{datos.codigo}}
+                        </td>
+                        <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">
+                            {{datos.descripcion}}</td>
+                        <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">
+                            {{datos.presentacion}}</td>
+                        <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">
+                            {{datos.precio|currency}}</td>
+
+                    </tr>
+                    <tr *ngIf="!resultState">
+                        <td>
+                            No se encontraron Coincidencias
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <!-- Modal -->
+                <div class="modal fullscreen-modal fade" id="myModal" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div *ngIf="!statusAgregar" class="modal-content">
+                            <form #formularioModificar="ngForm">
+
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Articulo</h4>
+
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <input type="hidden" name="id" [(ngModel)]="articuloSelected.id">
+                                    <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-4 col-form-label">Codigo:</label>
+                                        <div class="col-sm-8">
+                                            <input class="formularioEdit" type="text" readonly
+                                                class="form-control-plaintext" name="codigo" id="codigo"
+                                                [(ngModel)]="articuloSelected.codigo">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="apellido" class="col-sm-4 col-form-label">Descripcion:</label>
+                                        <div class="col-sm-8">
+                                            <input class="formularioEdit" type="text" readonly
+                                                class="form-control-plaintext" name="descripcion" id="descripcion"
+                                                [(ngModel)]="articuloSelected.descripcion">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="apellido" class="col-sm-4 col-form-label">Presentacion:</label>
+                                        <div class="col-sm-8">
+                                            <input class="formularioEdit" type="text" readonly
+                                                class="form-control-plaintext" name="presentacion" id="presentacion"
+                                                [(ngModel)]="articuloSelected.presentacion">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="telefono" class="col-sm-4 col-form-label">Precio Costo/Unidad:</label>
+                                        <div class="col-sm-8">
+                                            <input class="formularioEdit" type="text" readonly
+                                                class="form-control-plaintext" name="precio" id="precio"
+                                                [(ngModel)]="articuloSelected.precio">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="telefono" class="col-sm-4 col-form-label">Precio Venta/Unidad:</label>
+                                        <div class="col-sm-8">
+                                            <input class="formularioEdit" type="text" readonly
+                                                class="form-control-plaintext" name="precioVenta" id="precioVenta"
+                                                [(ngModel)]="articuloSelected.precioVenta">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="telefono" class="col-sm-4 col-form-label">Descuento:</label>
+                                        <div class="col-sm-8">
+                                            <input class="formularioEdit" type="text" readonly
+                                                class="form-control-plaintext" name="descuento" id="descuento"
+                                                [(ngModel)]="articuloSelected.descuento">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="direccion" class="col-sm-4 col-form-label">Stock Minimo:</label>
+                                        <div class="col-sm-8">
+                                            <input class="algo" type="text" readonly class="form-control-plaintext"
+                                                name="stockMinimo" id="stockMinimo"
+                                                [(ngModel)]="articuloSelected.stockMinimo">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="direccion" class="col-sm-4 col-form-label">Stock Maximo:</label>
+                                        <div class="col-sm-8">
+                                            <input class="algo" type="text" readonly class="form-control-plaintext"
+                                                name="stockMaximo" id="stockMaximo"
+                                                [(ngModel)]="articuloSelected.stockMaximo">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 col-form-label"> Cantidad:</label>
+                                        <label class="col-sm-8 col-form-label"> {{contar}}</label>
+
+
+                                    </div>
+                                    <p><strong>Fechas de Vencimientos</strong></p>
+                                    <div *ngFor="let datos of listVencimiento">
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label"> Fecha</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                    value="{{datos.fecha.seconds *1000|date:'dd/MM/yyyy'}}">
+                                            </div>
+                                            <label class="col-sm-2 col-form-label"> Cantidad</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" readonly class="form-control-plaintext col-sm-6"
+                                                    value="{{datos.cantidad}}">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" data-dismiss="modal"
+                                            (click)="cancelCerrar()" class="btn btn-warning">{{cancelarCerrar}}</button>
+                                        <button (click)="agregarArticulos()" type="button"
+                                            class="btn btn-secondary">Agregar mas</button>
+                                        <button id="saveModif" type="button" (click)="modificarCliente(formularioModificar)"
+                                            class="btn btn-primary">{{modificarGuardar}}</button>
+                                    </div>
+
+                                </div>
+                            </form>
+
+                        </div>
+                        <div *ngIf="statusAgregar" class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Articulo " {{articuloSelected.descripcion}} "</h4> <br/>
+                                
+                                <button type="button" (click)="cancelarAgregar()" class="close" data-dismiss="modal"  aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>Fechas de Vencimientos</strong></p>
+                                <div *ngFor="let datos of listVencimiento">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label"> Fecha</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" readonly class="form-control-plaintext"
+                                                value="{{datos.fecha.seconds *1000|date:'dd/MM/yyyy'}}">
+                                        </div>
+                                        <label class="col-sm-2 col-form-label"> Cantidad</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" readonly class="form-control-plaintext col-sm-6"
+                                                value="{{datos.cantidad}}">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="modal-header"></div>
+                                <h4>Agregar Nuevo</h4>
+                                <form #formFechas="ngForm" (submit)="agregarInventario(formFechas)" autocomplete="on">
+                                        <input type="hidden" name="codigo" [(ngModel)]="articuloSelected.codigo">
+                                        <div class="form-group">
+                                                <label for=""> Fecha de Vencimiento </label>
+                                                <input type="date" name="fecha" class="form-control" [(ngModel)]="vencimiento.fecha">
+                                                <br />
+                                                <input type="text" class="form-control" name="cantidad" placeholder="cantidad"
+                                                    [(ngModel)]="vencimiento.cantidad">
+                                            </div>
+                                            <div class="modal-footer">
+                                                    <button class="btn btn-warning btn-block" (click)="cancelarAgregar()" type="button"> Atras</button>
+                                                    <button class="btn btn-success btn-block" type="submit">Registrar</button>
+                                                
+                                            </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

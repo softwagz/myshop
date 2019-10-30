@@ -1,0 +1,16 @@
+#formularioArticulos{
+    margin: 5%;
+    padding: 3%;
+    background: url('/assets/mesa2.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.card-body{
+    background: rgba(255, 255, 255, 0.513);
+    color: black;
+    border-radius: 10px;
+}
+

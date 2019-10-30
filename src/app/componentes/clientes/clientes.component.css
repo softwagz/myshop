@@ -1,0 +1,36 @@
+#principal{
+    background: url('/assets/fondopared.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+}
+.card{
+    margin: 5%;
+    background: rgba(185, 185, 185, 0.493);
+}
+.card .card-body{
+    background: rgba(253, 253, 253, 0.63);
+    margin: 5%;
+    border-radius: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+.card-img-top{
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    padding: 2%;
+}
+
+#home{
+    text-align: center;
+}
+#formularioRegistro{
+    background: url('/assets/mesa2.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+}

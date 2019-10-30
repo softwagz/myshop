@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+
+    background: url('./assets/fondopared.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+}
+
+.menu{
+    background: url('/assets/mesa2.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin-top: 2%;
+    border-radius: 8px;
+    margin-bottom: 2%;
+    padding: 1%;
+}
+
+.menu ul{
+    padding: 2px;
+}

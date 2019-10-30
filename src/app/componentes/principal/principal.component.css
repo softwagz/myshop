@@ -1,0 +1,27 @@
+#principal{
+    background: url('/assets/mesa2.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    padding: 4%;
+    border-radius: 8px;
+    margin-top: 1%;
+}
+#opciones{
+    background:  rgba(255, 0, 0, 0.191);
+    text-align: center;
+    border-radius: 10px;
+}
+ 
+#opciones a {
+    width:80%;
+    margin: 10% 0;
+    padding: 10%;
+
+    
+}
+#opciones a span{
+    font-size: 100%;
+    margin-top: 5%;
+}

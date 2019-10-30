@@ -1,0 +1,34 @@
+<div *ngIf="!isLoged" class="container-fluid" id="bgLoging"> 
+    <div class="row">
+
+        <div class="col-lg-4">
+        </div>
+        <div class="col-lg-4">
+                <div class="card">
+                    <img src="/assets/usuarios.png" class="card-img-top" alt="loginUser">
+                    <div class="card-body">
+                        <form #formLogin="ngForm" autocomplete="off" (submit)="loginUser(formLogin)" >
+                            <div class="form-group">
+                                <label for="email"> <i class="fas fa-at"></i> Correo </label>
+                                <input [(ngModel)]="email" class="form-control" type="email" name="email"
+                                    placeholder="example@gmail.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password"> <i class="fas fa-key"></i> Contraseña </label>
+                                <input [(ngModel)]="password" class="form-control" type="password" name="password"
+                                    placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit"
+                                    class="btn btn-block btn-success">Acceder</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <div class="col-lg-4">
+        </div>
+
+    </div>
+</div>
+<router-outlet *ngIf="isLoged"></router-outlet>
