@@ -218,6 +218,7 @@ export class InventarioComponent implements OnInit {
       $('#descripcion').removeAttr('readonly');
       $('#presentacion').removeAttr('readonly');
       $('#precio').removeAttr('readonly');
+      $('#precioVenta').attr('readonly');
       $('#descuento').removeAttr('readonly');
       $('#stockMinimo').removeAttr('readonly');
       $('#stockMaximo').removeAttr('readonly');
@@ -234,11 +235,26 @@ export class InventarioComponent implements OnInit {
       $('#descripcion').attr('readonly', 'readonly');
       $('#presentacion').attr('readonly', 'readonly');
       $('#precio').attr('readonly', 'readonly');
+      $('#precioVenta').attr('readonly','readonly');
       $('#descuento').attr('readonly', 'readonly');
       $('#stockMinimo').attr('readonly', 'readonly');
       $('#stockMaximo').attr('readonly', 'readonly');
       $('#saveModif').attr("data-dismiss", "modal");
-      this.toas.show('se estan guardando los cambios', 'Modificando');
+
+
+      //llamando al metodo de actualizacion de los cambios
+      this.inventarioServ.editArticle(form,this.auth.auth.currentUser.email).then(
+        exito => {
+            this.toas.show('se estan guardando los cambios', 'Modificando');
+            console.log(exito);
+            this.toas.success('Cambios guardados correctamente','Exito');
+        },
+        fail => {
+          this.toas.warning ('No se ha podido modificar','Operacion Fallida');
+          console.log(fail);
+
+        }
+      )
 
     }
   }

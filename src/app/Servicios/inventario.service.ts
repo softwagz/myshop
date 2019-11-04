@@ -45,5 +45,11 @@ export class InventarioService {
   loadArticle(user:string){
     return this.firestore.collection('users').doc(user).collection('articulos').snapshotChanges();
   }
+  editArticle(form:NgForm,user:string){
+    let data = Object.assign({},form.value);
+    delete data.id;
+    return this.firestore.doc('users/'+user+'/articulos/'+form.value.id).update(data);
+  }
+
  
 }
