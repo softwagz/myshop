@@ -147,8 +147,20 @@ export class InventarioComponent implements OnInit {
   viewArticle(article: any) {
     this.fechasVencimientoAsociadas(article.codigo);
     console.log(article);
-    let art = article;
-    this.articuloSelected = art;
+    this.articuloSelected = article;
+   //Estado por defecto del Modal View, evita errores al hacer click fuera del modal
+      this.modificarGuardar = "Modificar";
+      this.cancelarCerrar = "Cerrar";
+      this.statusEdit = false;
+      $('#descripcion').attr('readonly', 'readonly');
+      $('#presentacion').attr('readonly', 'readonly');
+      $('#precio').attr('readonly', 'readonly');
+      $('#descuento').attr('readonly', 'readonly');
+      $('#stockMinimo').attr('readonly', 'readonly');
+      $('#stockMaximo').attr('readonly', 'readonly');
+      $('#saveModif').attr("data-dismiss", "modal");
+      
+      
 
   }
 
@@ -198,7 +210,7 @@ export class InventarioComponent implements OnInit {
   cancelarAgregar() {
     this.statusAgregar = false;
   }
-  modificarCliente(form: NgForm) {
+  modificarArticulo(form: NgForm) {
     if (!this.statusEdit) {
       this.modificarGuardar = "Guardar";
       this.cancelarCerrar = "Cancelar";

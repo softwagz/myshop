@@ -56,7 +56,6 @@
             <div class="card" id="formularioArticulos">
                 <div class="text-center">
                     <h3>Productos</h3>
-                    <input type="file" name="archivo" accept="video/*" id="archivo">
                 </div>
                 <div class="card-body">
                     <form autocomplete="off" #formularioArticulos="ngForm"
@@ -190,12 +189,10 @@
             </table>
         </div>
     </div>
-
-
+<!--Contenedor del view Article-->
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <!-- Modal -->
                 <div class="modal fullscreen-modal fade" id="myModal" tabindex="-1" role="dialog"
                     aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
@@ -302,7 +299,7 @@
                                             (click)="cancelCerrar()" class="btn btn-warning">{{cancelarCerrar}}</button>
                                         <button (click)="agregarArticulos()" type="button"
                                             class="btn btn-secondary">Agregar mas</button>
-                                        <button id="saveModif" type="button" (click)="modificarCliente(formularioModificar)"
+                                        <button id="saveModif" type="button" (click)="modificarArticulo(formularioModificar)"
                                             class="btn btn-primary">{{modificarGuardar}}</button>
                                     </div>
 
