@@ -1,5 +1,4 @@
 <div class="container-fluid">
-    <button (click)="prueba();" class="btn btn-danger" >Click aqui</button>
 
     <div class="row menu">
         <div class="col-lg-5">
@@ -166,7 +165,7 @@
                         <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">
                             {{datos.presentacion}}</td>
                         <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">
-                            {{datos.precio|currency}}
+                            {{datos.precioVenta|currency}}
                         </td>
 
                     </tr>
@@ -303,7 +302,7 @@
                                         <button type="button" data-dismiss="modal"
                                             (click)="cancelCerrar()" class="btn btn-warning">{{cancelarCerrar}}</button>
                                         <button (click)="agregarArticulos()" type="button"
-                                            class="btn btn-success">Nuevo++</button>
+                                            class="btn btn-success">Fechas++</button>
                                         <button id="saveModif" type="button" (click)="modificarArticulo(formularioModificar)"
                                             class="btn btn-primary">{{modificarGuardar}}</button>
                                         <button type="button" data-dismiss="modal" class="btn btn-danger" (click)="deleteArticle(articuloSelected.id)">Eliminar</button>
@@ -325,7 +324,7 @@
                                 <div *ngFor="let datos of listVencimiento">
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label"> Fecha</label>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <input type="text" readonly class="form-control-plaintext"
                                                 value="{{datos.fecha.seconds *1000|date:'dd/MM/yyyy'}}">
                                         </div>
@@ -333,13 +332,16 @@
                                         <div class="col-sm-4">
                                             <input type="text" readonly class="form-control-plaintext col-sm-6"
                                                 value="{{datos.cantidad}}">
-
+                                        </div>
+                                        <div class="col-sm-1">
+                                                <button (click)="deleteVencimientoArticle(datos.id,datos.codigo)" type="button" class="close" aria-label="Close"><span
+                                                    aria-hidden="true">&times;</span></button>
                                         </div>
                                     </div>
                                 </div>
                             <div class="modal-header"></div>
                                 <h4>Agregar Nuevo</h4>
-                                <form #formFechas="ngForm" (submit)="agregarInventario(formFechas)" autocomplete="on">
+                                <form #formFechas="ngForm" (submit)="agregarInventario(formFechas)" autocomplete="off">
                                         <input type="hidden" name="codigo" [(ngModel)]="articuloSelected.codigo">
                                         <div class="form-group">
                                                 <label for=""> Fecha de Vencimiento </label>

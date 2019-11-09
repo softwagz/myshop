@@ -193,6 +193,19 @@ export class InventarioComponent implements OnInit {
   deleteMultiArticle(){
 
   }
+  deleteVencimientoArticle(id:string,cod:string){
+    this.inventarioServ.deleteVencimientoArticle(this.auth.auth.currentUser.email,id).then(
+      success => {
+        this.toas.success('Fecha Asociada','Eliminacion');
+        this.loadVencimientoArticle();
+        this.fechasVencimientoAsociadas(cod);
+      },
+      fail => {
+        this.toas.error('Fecha Asociada','Error');
+        console.log(fail);
+      }
+    )  
+  }
 
   clearSearch() {
     this.searchArticle("");
