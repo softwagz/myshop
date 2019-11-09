@@ -1,4 +1,6 @@
 <div class="container-fluid">
+    <button (click)="prueba();" class="btn btn-danger" >Click aqui</button>
+
     <div class="row menu">
         <div class="col-lg-5">
             <ul style="list-style: none; display: inline-flex; background: rgba(0, 0, 0, 0.486);">
@@ -301,9 +303,10 @@
                                         <button type="button" data-dismiss="modal"
                                             (click)="cancelCerrar()" class="btn btn-warning">{{cancelarCerrar}}</button>
                                         <button (click)="agregarArticulos()" type="button"
-                                            class="btn btn-secondary">Agregar ++ / Quitar --</button>
+                                            class="btn btn-success">Nuevo++</button>
                                         <button id="saveModif" type="button" (click)="modificarArticulo(formularioModificar)"
                                             class="btn btn-primary">{{modificarGuardar}}</button>
+                                        <button type="button" data-dismiss="modal" class="btn btn-danger" (click)="deleteArticle(articuloSelected.id)">Eliminar</button>
                                     </div>
 
                                 </div>

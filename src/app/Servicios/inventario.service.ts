@@ -39,8 +39,11 @@ export class InventarioService {
     return this.firestore.collection('users').doc(user).collection('vencimientoArticulos').snapshotChanges();
   }
   deleteArticle(user:string,id:string){
-    return this.firestore.collection('users').doc(user).collection('articulos').doc(id).delete ();
+     return this.firestore.collection('users').doc(user).collection('articulos').doc(id).delete();
     //falta eliminar las fechas de vencimiento asociadas
+  }
+  deleteVencimientoArticle(user:string, id:string){
+    return this.firestore.collection('users').doc(user).collection('vencimientoArticulos').doc(id).delete(); 
   }
   loadArticle(user:string){
     return this.firestore.collection('users').doc(user).collection('articulos').snapshotChanges();

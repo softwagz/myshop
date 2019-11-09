@@ -23,8 +23,6 @@ export class InventarioComponent implements OnInit {
 
   }
 
-  startedScanner: boolean = false;
-
   //Atributos para manejo de articulos
   dataArticulo: Articulo[];
   articulo: Articulo = new Articulo();
@@ -61,9 +59,7 @@ export class InventarioComponent implements OnInit {
   cancelarCerrar = "Cerrar";
   statusEdit = false;
 
-  prueba(algo: any) {
-
-
+  prueba(algo?: any) {
   }
   ngOnInit() {
     this.loadArticle();
@@ -136,7 +132,6 @@ export class InventarioComponent implements OnInit {
         let codigo = form.value.codigo;
         this.toas.success('Se han agregado los nuevos articulos al inventario', 'Registro Exitoso');
         this.fechasVencimientoAsociadas(codigo);
-        this.clearForm(form);
         this.articuloSelected.codigo = codigo;
       },
       error => {
@@ -181,7 +176,22 @@ export class InventarioComponent implements OnInit {
         this.toas.error('No se ha podido Eliminar el articulo', 'Fallo al Eliminar');
         console.log(error);
       }
-    )
+    );
+    for(let i = 0; i< this.listVencimiento.length; i++){
+      this.inventarioServ.deleteVencimientoArticle(this.auth.auth.currentUser.email,this.listVencimiento[i].id).then(
+        success => {
+          this.toas.success('Fechas Asociadas','Eliminacion');
+        },
+        fail => {
+          this.toas.error('Fechas Asociadas','Error');
+          console.log(fail);
+        }
+      )   
+    }
+  
+    }
+  deleteMultiArticle(){
+
   }
 
   clearSearch() {
@@ -284,6 +294,7 @@ export class InventarioComponent implements OnInit {
 
     }
   }
+  
 
   //Filtro de Vencimientos
   fechasVencimientoAsociadas(cod: string) {

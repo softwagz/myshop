@@ -1,0 +1,23 @@
+[33mcommit d62286aa4440c1cbb57cb47d48e606e09d53d688[m[33m ([m[1;36mHEAD -> [m[1;32minventario[m[33m)[m
+Author: Gerardo <softw.agz@gmail.com>
+Date:   Sat Nov 9 05:01:12 2019 -0500
+
+    se han agregado algunos estilos e iconos al menu principal, al inventario y al registro de cliente
+
+[33mcommit e7e1cdd6a63d3ebe3ee783928df1384b551dd91f[m
+Author: Gerardo <softw.agz@gmail.com>
+Date:   Mon Nov 4 00:23:15 2019 -0500
+
+    se ha agregado el metodo de actualizacion de articulo
+
+[33mcommit d70d547c7fe0400ab21c68992806d6bda44e9ecb[m
+Author: Gerardo <softw.agz@gmail.com>
+Date:   Sun Nov 3 23:10:57 2019 -0500
+
+    Se han agregado un estado por defecto en el viewArticulo para evitar errores del mismo
+
+[33mcommit 51c402abb498d440a50ce469d84c2b2f286cc239[m[33m ([m[1;32mmaster[m[33m)[m
+Author: Gerardo <softw.agz@gmail.com>
+Date:   Wed Oct 30 09:42:08 2019 -0500
+
+    Estado Inicial del Proyecto
