@@ -14,3 +14,13 @@
     border-radius: 10px;
 }
 
+.table-scroll{
+    position: relative;
+    height: 90%;
+    overflow: auto
+}
+
+.custom-scroll{
+    display: block;
+
+}

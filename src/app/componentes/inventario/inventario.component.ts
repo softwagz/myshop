@@ -114,6 +114,7 @@ export class InventarioComponent implements OnInit {
         this.inventarioServ.registerVencimientoArticle(this.auth.auth.currentUser.email, form).then(
           exito => {
             this.toas.success('Fechas Agregadas', 'Vencimiento');
+            this.clearForm(form);
 
           },
           error => {
@@ -155,6 +156,8 @@ export class InventarioComponent implements OnInit {
       $('#descripcion').attr('readonly', 'readonly');
       $('#presentacion').attr('readonly', 'readonly');
       $('#precio').attr('readonly', 'readonly');
+      $('#precioVenta').attr('readonly', 'readonly');
+
       $('#descuento').attr('readonly', 'readonly');
       $('#stockMinimo').attr('readonly', 'readonly');
       $('#stockMaximo').attr('readonly', 'readonly');
@@ -218,7 +221,7 @@ export class InventarioComponent implements OnInit {
       $('#descripcion').removeAttr('readonly');
       $('#presentacion').removeAttr('readonly');
       $('#precio').removeAttr('readonly');
-      $('#precioVenta').attr('readonly');
+      $('#precioVenta').removeAttr('readonly');
       $('#descuento').removeAttr('readonly');
       $('#stockMinimo').removeAttr('readonly');
       $('#stockMaximo').removeAttr('readonly');

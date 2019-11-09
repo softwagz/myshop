@@ -48,14 +48,14 @@
             </ul>
         </div>
         <div class="col-lg-7 text-center">
-            <h2>Inventario de Productos</h2>
+            <h2>Inventario de Productos <i class="fas fa-tasks"></i></h2>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
             <div class="card" id="formularioArticulos">
                 <div class="text-center">
-                    <h3>Productos</h3>
+                    <h3 style="color: rgb(255, 255, 255);">Registrar Producto <i class="fas fa-cash-register"></i></h3>
                 </div>
                 <div class="card-body">
                     <form autocomplete="off" #formularioArticulos="ngForm"
@@ -146,7 +146,9 @@
                     <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
                 </form>
             </nav>
-            <table class="table table-light table-striped table-hover text-center">
+
+            <div class="table-scroll custom-scroll">
+                <table class="table table-light table-striped table-hover text-center">
                 <thead>
                     <th>codigo</th>
                     <th>Descripcion</th>
@@ -186,7 +188,8 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>
+                </table>
+            </div>
         </div>
     </div>
 <!--Contenedor del view Article-->
