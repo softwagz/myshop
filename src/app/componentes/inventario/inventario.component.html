@@ -1,8 +1,8 @@
 <div class="container-fluid">
-
+    <button hidden class="btn btn-danger" (click)="mensajeError('codigo','mensaje')">click</button>
     <div class="row menu">
         <div class="col-lg-5">
-            <ul style="list-style: none; display: inline-flex; background: rgba(0, 0, 0, 0.486);">
+            <ul style="list-style: none; display: inline-flex; background: rgba(0, 0, 0, 0.486); margin-top: auto;margin-bottom: auto;">
                 <li>
                     <a class="badge" href="#" routerLink="/principal">
                         <i class="fas fa-home fa-2x"></i><br />
@@ -48,71 +48,97 @@
                 </li>
             </ul>
         </div>
-        <div class="col-lg-7 text-center">
+        <div class="col-lg-7 text-center" style="padding-left: auto;padding-top: auto;">
             <h2>Inventario de Productos <i class="fas fa-tasks"></i></h2>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
-            <div class="card" id="formularioArticulos">
+        <div class="col-md-2" style="text-align: center;" id="contenedorIcon">
+                <span class="badge badge-warning" (click)="swichAgregar()" id="iconAgregar">
+                        <i class="fas fa-eye fa-4x"></i> <br> Registrar Articulo
+                </span>
+        </div>
+        <div class="col-md-4" id="formRegister">
+              <div class="card" id="formularioArticulos">
                 <div class="text-center">
-                    <h3 style="color: rgb(255, 255, 255);">Registrar Producto <i class="fas fa-cash-register"></i></h3>
+                        <span (click)="swichAgregar()" id="ocultarBoton" class="badge-pill badge-warning"><i class="fas fa-eye-slash"></i> Ocultar</span> <h3 style="color: rgb(255, 255, 255);">Registrar Producto <i class="fas fa-cash-register"></i></h3> 
                 </div>
                 <div class="card-body">
                     <form autocomplete="off" #formularioArticulos="ngForm"
                         (submit)="registerArticle(formularioArticulos)">
                         <div class="form-group">
-                            <input class="form-control" [(ngModel)]="articulo.codigo" type="text" name="codigo"
-                                placeholder="codigo">
+                            <input (keyup)="validarForm(formularioArticulos)" class="form-control" id="codigo" [(ngModel)]="articulo.codigo" type="text" name="codigo"
+                                placeholder="codigo de Barra/serial" required>
+                            <div class="alert alert-danger" *ngIf="codigo">
+                                Por Favor Ingresa solo numeros
+                            </div>
                         </div>
                         <div class="form-group">
-                            <input class="form-control" [(ngModel)]="articulo.descripcion" type="text"
-                                name="descripcion" placeholder="descripcion">
+                            <input (keyup)="validarForm(formularioArticulos)" class="form-control" [(ngModel)]="articulo.descripcion" type="text"
+                                name="descripcion" placeholder="descripcion" required>
                         </div>
                         <div class="form-group">
                             <input class="form-control" [(ngModel)]="articulo.presentacion" type="text"
-                                name="presentacion" placeholder="presentacion">
+                                name="presentacion" placeholder="presentacion" required>
                         </div>
                         <div class="form-group">
-                            <input class="form-control" [(ngModel)]="articulo.precio" type="text" name="precio"
-                                placeholder="Precio de Costo/unidad">
+                            <input (keyup)="validarForm(formularioArticulos)" class="form-control" [(ngModel)]="articulo.precio" type="text" name="precio"
+                                placeholder="Precio de Costo/unidad" required>
+                                <div class="alert alert-danger" *ngIf="precioCompra">
+                                    Por favor ingresa solo numeros
+                                </div>
                         </div>
                         <div class="form-group">
-                            <input class="form-control" [(ngModel)]="articulo.precioVenta" type="text" name="precioVenta"
-                                placeholder="Precio de Venta/unidad">
+                            <input (keyup)="validarForm(formularioArticulos)" class="form-control" [(ngModel)]="articulo.precioVenta" type="text" name="precioVenta"
+                                placeholder="Precio de Venta/unidad" required>
+                                <div class="alert alert-danger" *ngIf="precioVenta">
+                                    Por favor ingresa solo numeros
+                                </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label"> Descuento </label>
                             <div class="col-sm-6">
-                                <input class="form-control" type="text" name="descuento" placeholder="Descuento en %"
-                                    [(ngModel)]="articulo.descuento">
+                                <input (keyup)="validarForm(formularioArticulos)" class="form-control" type="text" name="descuento" placeholder="Descuento en %"
+                                    [(ngModel)]="articulo.descuento" required>
+                                    <div class="alert alert-danger" *ngIf="descuento">
+                                        Por favor ingresa solo numeros
+                                    </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col">
-                                    <input class="form-control" type="text" [(ngModel)]="articulo.stockMinimo"
-                                        name="stockMinimo" placeholder="Stock Min.">
+                                    <input (keyup)="validarForm(formularioArticulos)" class="form-control" type="text" [(ngModel)]="articulo.stockMinimo"
+                                        name="stockMinimo" placeholder="Stock Min." required>
+                                        <div class="alert alert-danger" *ngIf="min">
+                                            Por favor ingresa solo numeros
+                                        </div>
                                 </div>
                                 <div class="col">
-                                    <input class="form-control" type="text" [(ngModel)]="articulo.stockMaximo"
-                                        name="stockMaximo" placeholder="Stock Max.">
+                                    <input (keyup)="validarForm(formularioArticulos)" class="form-control" type="text" [(ngModel)]="articulo.stockMaximo"
+                                        name="stockMaximo" placeholder="Stock Max." required>
+                                        <div class="alert alert-danger" *ngIf="max">
+                                            Por favor ingresa solo numeros
+                                        </div>
 
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for=""> Fecha de Vencimiento </label>
-                            <input type="date" name="fecha" class="form-control" [(ngModel)]="vencimiento.fecha">
+                            <input type="date" name="fecha" class="form-control" [(ngModel)]="vencimiento.fecha" required>
                             <br />
-                            <input type="text" class="form-control" name="cantidad" placeholder="cantidad"
-                                [(ngModel)]="vencimiento.cantidad">
+                            <input (keyup)="validarForm(formularioArticulos)" type="text" class="form-control" name="cantidad" placeholder="cantidad"
+                                [(ngModel)]="vencimiento.cantidad" required>
+                                <div class="alert alert-danger" *ngIf="cantidad">
+                                    Por favor ingresa solo numeros
+                                </div>
                         </div>
                         <div class="form-group">
                             <div class="form-check">
-                                <input class="form-check-input" [(ngModel)]="articulo.iva" checked="false"
-                                    data-md-icheck (change)="excentoIVA($event)" type="checkbox" name="iva" id="iva">
+                                <input (keyup)="validarForm(formularioArticulos)" class="form-check-input" [(ngModel)]="articulo.iva" checked="false"
+                                    data-md-icheck (change)="excentoIVA($event)" type="checkbox" name="iva" id="iva" >
                                 <label class="form-check-label" for="defaultCheck1">
                                     Excento de IVA
                                 </label>
@@ -138,7 +164,7 @@
             </div>
 
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 col-md-10" id="tableArticulos">
             <nav class="navbar navbar-light bg-light">
                 <span class="nav-item"><strong>Lista de Productos</strong></span>
                 <form #formularioBusqueda="ngForm" autocomplete="off" class="form-inline ml-auto">
@@ -217,15 +243,16 @@
                                         <div class="col-sm-8">
                                             <input class="formularioEdit" type="text" readonly
                                                 class="form-control-plaintext" name="codigo" id="codigo"
-                                                [(ngModel)]="articuloSelected.codigo">
+                                                [(ngModel)]="articuloSelected.codigo" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="apellido" class="col-sm-4 col-form-label">Descripcion:</label>
                                         <div class="col-sm-8">
-                                            <input class="formularioEdit" type="text" readonly
+                                            <input  class="formularioEdit" type="text" readonly
                                                 class="form-control-plaintext" name="descripcion" id="descripcion"
-                                                [(ngModel)]="articuloSelected.descripcion">
+                                                [(ngModel)]="articuloSelected.descripcion" required>
+
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -233,47 +260,62 @@
                                         <div class="col-sm-8">
                                             <input class="formularioEdit" type="text" readonly
                                                 class="form-control-plaintext" name="presentacion" id="presentacion"
-                                                [(ngModel)]="articuloSelected.presentacion">
+                                                [(ngModel)]="articuloSelected.presentacion" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="telefono" class="col-sm-4 col-form-label">Precio Costo/Unidad:</label>
                                         <div class="col-sm-8">
-                                            <input class="formularioEdit" type="text" readonly
+                                            <input (keyup)="validarFormEdit(formularioModificar)" class="formularioEdit" type="text" readonly
                                                 class="form-control-plaintext" name="precio" id="precio"
-                                                [(ngModel)]="articuloSelected.precio">
+                                                [(ngModel)]="articuloSelected.precio" required>
+                                                <div class="alert alert-danger" *ngIf="precioCompraEdit">
+                                                    Por Favor ingresa Solo Numeros
+                                                </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="telefono" class="col-sm-4 col-form-label">Precio Venta/Unidad:</label>
                                         <div class="col-sm-8">
-                                            <input class="formularioEdit" type="text" readonly
+                                            <input (keyup)="validarFormEdit(formularioModificar)" class="formularioEdit" type="text" readonly
                                                 class="form-control-plaintext" name="precioVenta" id="precioVenta"
-                                                [(ngModel)]="articuloSelected.precioVenta">
+                                                [(ngModel)]="articuloSelected.precioVenta" required>
+                                                <div class="alert alert-danger" *ngIf="precioVentaEdit">
+                                                    Por Favor ingresa Solo Numeros
+                                                </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="telefono" class="col-sm-4 col-form-label">Descuento:</label>
                                         <div class="col-sm-8">
-                                            <input class="formularioEdit" type="text" readonly
+                                            <input (keyup)="validarFormEdit(formularioModificar)" class="formularioEdit" type="text" readonly
                                                 class="form-control-plaintext" name="descuento" id="descuento"
-                                                [(ngModel)]="articuloSelected.descuento">
+                                                [(ngModel)]="articuloSelected.descuento" required>
+                                                <div class="alert alert-danger" *ngIf="descuentoEdit">
+                                                    Por Favor ingresa Solo Numeros
+                                                </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="direccion" class="col-sm-4 col-form-label">Stock Minimo:</label>
                                         <div class="col-sm-8">
-                                            <input class="algo" type="text" readonly class="form-control-plaintext"
+                                            <input (keyup)="validarFormEdit(formularioModificar)" class="algo" type="text" readonly class="form-control-plaintext"
                                                 name="stockMinimo" id="stockMinimo"
-                                                [(ngModel)]="articuloSelected.stockMinimo">
+                                                [(ngModel)]="articuloSelected.stockMinimo" required>
+                                                <div class="alert alert-danger" *ngIf="minEdit">
+                                                    Por Favor ingresa Solo Numeros
+                                                </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="direccion" class="col-sm-4 col-form-label">Stock Maximo:</label>
                                         <div class="col-sm-8">
-                                            <input class="algo" type="text" readonly class="form-control-plaintext"
+                                            <input (keyup)="validarFormEdit(formularioModificar)" class="algo" type="text" readonly class="form-control-plaintext"
                                                 name="stockMaximo" id="stockMaximo"
-                                                [(ngModel)]="articuloSelected.stockMaximo">
+                                                [(ngModel)]="articuloSelected.stockMaximo" required>
+                                                <div class="alert alert-danger" *ngIf="maxEdit">
+                                                    Por Favor ingresa Solo Numeros
+                                                </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -294,18 +336,19 @@
                                             <div class="col-sm-4">
                                                 <input type="text" readonly class="form-control-plaintext col-sm-6"
                                                     value="{{datos.cantidad}}">
+                                                    
 
                                             </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" data-dismiss="modal"
-                                            (click)="cancelCerrar()" class="btn btn-warning">{{cancelarCerrar}}</button>
-                                        <button (click)="agregarArticulos()" type="button"
+                                            (click)="cancelCerrar()" id="cancelar" class="btn btn-warning">{{cancelarCerrar}}</button>
+                                        <button (click)="agregarArticulos()" id="btnFechas" type="button"
                                             class="btn btn-success">Fechas++</button>
                                         <button id="saveModif" type="button" (click)="modificarArticulo(formularioModificar)"
                                             class="btn btn-primary">{{modificarGuardar}}</button>
-                                        <button type="button" data-dismiss="modal" class="btn btn-danger" (click)="deleteArticle(articuloSelected.id)">Eliminar</button>
+                                        <button type="button" id="btnDelete" data-dismiss="modal" class="btn btn-danger" (click)="deleteArticle(articuloSelected.id)">Eliminar</button>
                                     </div>
 
                                 </div>
@@ -332,6 +375,7 @@
                                         <div class="col-sm-4">
                                             <input type="text" readonly class="form-control-plaintext col-sm-6"
                                                 value="{{datos.cantidad}}">
+
                                         </div>
                                         <div class="col-sm-1">
                                                 <button (click)="deleteVencimientoArticle(datos.id,datos.codigo)" type="button" class="close" aria-label="Close"><span
@@ -345,10 +389,14 @@
                                         <input type="hidden" name="codigo" [(ngModel)]="articuloSelected.codigo">
                                         <div class="form-group">
                                                 <label for=""> Fecha de Vencimiento </label>
-                                                <input type="date" name="fecha" class="form-control" [(ngModel)]="vencimiento.fecha">
+                                                <input  type="date" name="fecha" class="form-control" [(ngModel)]="vencimiento.fecha" required>
                                                 <br />
-                                                <input type="text" class="form-control" name="cantidad" placeholder="cantidad"
-                                                    [(ngModel)]="vencimiento.cantidad">
+                                                <input (keyup)="validarFormAdd(formFechas)" name="cantidad" type="text" class="form-control" name="cantidad" placeholder="cantidad"
+                                                    [(ngModel)]="vencimiento.cantidad" required>
+                                                    <div class="alert alert-danger" *ngIf="cantidadAdd">
+                                                        Por Favor ingresa Solo Numeros
+                                                    </div>
+
                                             </div>
                                             <div class="modal-footer">
                                                     <button class="btn btn-warning btn-block" (click)="cancelarAgregar()" type="button"> Atras</button>

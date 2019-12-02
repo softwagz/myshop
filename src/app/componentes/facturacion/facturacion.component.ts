@@ -30,7 +30,14 @@ export class FacturacionComponent implements OnInit {
   ngOnInit() {
   
   }
-
+  prueba(){
+    if(this.turnTipoCliente){
+      this.turnTipoCliente=false;
+    }
+    else{
+      this.turnTipoCliente=true;
+    }
+  }
   cargarFacturas(){
 
     this.facturacionService.cargarFacturas(this.auth.auth.currentUser.email).subscribe(

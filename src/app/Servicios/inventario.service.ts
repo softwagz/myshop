@@ -2,14 +2,17 @@ import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {firestore} from 'firebase/app';
+import { VencimientoArticulo } from '../Modelos/vencimiento-articulo';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InventarioService {
 
-  constructor(private firestore:AngularFirestore) { }
+  constructor(private firestore:AngularFirestore, private auth:AngularFireAuth) { }
 
+  todasFechas:VencimientoArticulo[];
 
   registerArticle(user:string,forms:NgForm){
     let data = Object.assign({},forms.value);
@@ -32,6 +35,13 @@ export class InventarioService {
     let fecha = firestore.Timestamp.fromDate(new Date(fechaBase));
     data.fecha = fecha;
 
+    if(1){
+      //si la fecha son iguales, sumamos
+    }
+    else{
+      //agregamos normales
+    }
+
     return this.firestore.collection('users').doc(user).collection('vencimientoArticulos').add(data);    
 
   }
@@ -53,6 +63,7 @@ export class InventarioService {
     delete data.id;
     return this.firestore.doc('users/'+user+'/articulos/'+form.value.id).update(data);
   }
+
 
  
 }

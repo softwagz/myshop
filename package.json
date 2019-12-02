@@ -25,9 +25,11 @@
     "firebase": "^6.3.0",
     "jquery": "^3.4.1",
     "ngx-toastr": "^10.0.4",
+    "popper.js": "^1.16.0",
     "poppers": "^0.1.2",
     "quagga": "^0.12.1",
     "rxjs": "~6.4.0",
+    "sweetalert2": "^9.3.17",
     "tslib": "^1.9.0",
     "webrtc-adapter": "^7.2.9",
     "zone.js": "~0.9.1"

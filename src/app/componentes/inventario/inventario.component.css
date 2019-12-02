@@ -1,5 +1,5 @@
 #formularioArticulos{
-    margin: 5%;
+    margin: auto auto;
     padding: 3%;
     background: url('/assets/mesa2.jpg');
     -webkit-background-size: cover;
@@ -12,6 +12,32 @@
     background: rgba(255, 255, 255, 0.513);
     color: black;
     border-radius: 10px;
+    margin: 2%;
+}
+#formularioArticulos{
+    border-radius: 10px;
+}
+
+#iconAgregar{
+    border-radius: 10%;
+    padding:5%;
+    cursor: pointer;
+    color: black;
+}
+
+#iconAgregar:hover{
+    color: rgb(47, 47, 47);
+}
+
+#ocultarBoton{
+    cursor: pointer;
+    color: black;
+}
+
+#ocultarBoton:hover{
+    color: rgb(46, 46, 46);
+
+
 }
 
 .table-scroll{
