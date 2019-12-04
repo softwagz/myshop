@@ -379,7 +379,7 @@ export class InventarioComponent implements OnInit {
             
           
         }else{
-          Swal.fire('Error','has alterado algun campo de manera incorrecte, el campo aparecera con un mensaje debajo','error');
+          Swal.fire('Error','no has modificado ningun campo o has alterado alguno de manera incorrecta, el campo aparecera con un mensaje debajo','error');
         }
       }else{
 
@@ -622,7 +622,7 @@ export class InventarioComponent implements OnInit {
   }
   swichAgregar() {
     if (!this.mostrarFormulario) {
-      $('#formRegister').show();
+      $('#formRegister').fadeIn("slow");
       $('#contenedorIcon').hide();
       this.mostrarFormulario=true;
       $('#tableArticulos').removeClass('col-md-10');
@@ -630,7 +630,7 @@ export class InventarioComponent implements OnInit {
     }
     else {
       $('#formRegister').hide();
-      $('#contenedorIcon').show();
+      $('#contenedorIcon').fadeIn("slow");
       this.mostrarFormulario=false;
       $('#tableArticulos').addClass('col-md-10');
 

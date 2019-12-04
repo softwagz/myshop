@@ -1,5 +1,4 @@
 <div class="container-fluid">
-    <button hidden class="btn btn-danger" (click)="mensajeError('codigo','mensaje')">click</button>
     <div class="row menu">
         <div class="col-lg-5">
             <ul style="list-style: none; display: inline-flex; background: rgba(0, 0, 0, 0.486); margin-top: auto;margin-bottom: auto;">
@@ -167,6 +166,10 @@
         <div class="col-md-8 col-md-10" id="tableArticulos">
             <nav class="navbar navbar-light bg-light">
                 <span class="nav-item"><strong>Lista de Productos</strong></span>
+                <div style="margin-left: auto;" class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                    <label class="custom-control-label" for="customSwitch1">Buscar por nombre</label>
+                  </div>
                 <form #formularioBusqueda="ngForm" autocomplete="off" class="form-inline ml-auto">
                     <input name="search" (click)="clearSearch()" (keyup)="searchArticle(search)" [(ngModel)]="search"
                         class="form-control mr-sm-2" type="search" placeholder="codigo" aria-label="Search">
@@ -249,7 +252,7 @@
                                     <div class="form-group row">
                                         <label for="apellido" class="col-sm-4 col-form-label">Descripcion:</label>
                                         <div class="col-sm-8">
-                                            <input  class="formularioEdit" type="text" readonly
+                                            <input (keyup)="validarFormEdit(formularioModificar)" class="formularioEdit" type="text" readonly
                                                 class="form-control-plaintext" name="descripcion" id="descripcion"
                                                 [(ngModel)]="articuloSelected.descripcion" required>
 
@@ -258,7 +261,7 @@
                                     <div class="form-group row">
                                         <label for="apellido" class="col-sm-4 col-form-label">Presentacion:</label>
                                         <div class="col-sm-8">
-                                            <input class="formularioEdit" type="text" readonly
+                                            <input (keyup)="validarFormEdit(formularioModificar)" class="formularioEdit" type="text" readonly
                                                 class="form-control-plaintext" name="presentacion" id="presentacion"
                                                 [(ngModel)]="articuloSelected.presentacion" required>
                                         </div>
