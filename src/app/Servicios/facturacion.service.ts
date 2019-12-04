@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import { firestore } from 'firebase/app';
-import { Factura } from '../Modelos/factura';
+
 
 
 @Injectable({
@@ -11,6 +11,10 @@ export class FacturacionService {
 
 
   constructor(private firestore:AngularFirestore) { }
+
+  cargarArticulos(user:string){
+    return this.firestore.collection('users').doc(user).collection('articulos').snapshotChanges();
+  }
 
   cargarFacturas(user:string){
     return this.firestore.collection('users').doc(user).collection('facturas').snapshotChanges();

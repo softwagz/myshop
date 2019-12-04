@@ -24,11 +24,29 @@ export class FacturacionComponent implements OnInit {
   estadoBusquedaCliente:boolean=false;
   turnTipoVenta:boolean=false;
   turnTipoCliente:boolean=false;
+  dataArticulo:Articulo[];
   carrito:Articulo[];
   facturas:Factura[];
+  searchState:boolean=false;
 
   ngOnInit() {
+    this.cargarArticulos()
   
+  }
+
+  cargarArticulos(){
+    this.facturacionService.cargarArticulos(this.auth.auth.currentUser.email).subscribe(
+      resultado => {
+        this.dataArticulo = resultado.map(
+          items => {
+            return {
+              id: items.payload.doc.id,
+              ...items.payload.doc.data()
+            } as Articulo;
+          }
+        );
+      }
+    );  
   }
   prueba(){
     if(this.turnTipoCliente){

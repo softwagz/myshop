@@ -1,0 +1,10 @@
+.table-scroll{
+    position: relative;
+    height:40%;
+    overflow: auto
+}
+
+.custom-scroll{
+    display: block;
+
+}
