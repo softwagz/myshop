@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {LoginService} from '../../Servicios/login.service';
 import {Router} from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',

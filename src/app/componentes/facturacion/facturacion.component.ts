@@ -48,12 +48,20 @@ export class FacturacionComponent implements OnInit {
       }
     );  
   }
-  prueba(){
+  tipoCliente(){
     if(this.turnTipoCliente){
       this.turnTipoCliente=false;
     }
     else{
       this.turnTipoCliente=true;
+    }
+  }
+  tipoVenta(){
+    if(this.turnTipoVenta){
+      this.turnTipoVenta=false;
+    }else{
+      this.turnTipoVenta=true;
+
     }
   }
   cargarFacturas(){
@@ -79,10 +87,7 @@ export class FacturacionComponent implements OnInit {
   bajarDelCarrito(item:number){
     delete this.carrito[item];
   }
-  
-  tipoCliente(){
 
-  }
   buscarCliente(){
 
   }

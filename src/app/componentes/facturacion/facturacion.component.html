@@ -1,6 +1,6 @@
 <div class="container-fluid">
-    <div class="row menu">
-        <div class="col-lg-5">
+    <div class="row menu" id="menu">
+        <div class="col-lg-5 items-menu">
             <ul style="list-style: none; display: inline-flex; background: rgba(0, 0, 0, 0.486);">
                 <li>
                     <a class="badge" href="#" routerLink="/principal">
@@ -48,92 +48,194 @@
             </ul>
         </div>
         <div class="col-lg-7 text-center">
-            <h2>Registro de Facturas</h2>
+            <h2>Facturacion</h2>
         </div>
     </div>
-<div class="row">
-    <div class="col-6">
-        <div style="margin-left: auto;" class="custom-control custom-switch">
-            <input (click)="prueba()" type="checkbox" class="custom-control-input" id="tipoCliente">
-            <label class="custom-control-label" for="tipoCliente">Tipo Cliente</label>
-          </div> 
-    </div>
-    <div class="col-6">
-        <div style="margin-left: auto;" class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="TipoFactura">
-            <label class="custom-control-label" for="TipoFactura">Tipo Factura</label>
-          </div> 
-    </div>
-</div>   
-      
     <div class="row">
-        <div class="col-12">
-                <form #formularioFactura="ngForm">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div *ngIf="!turnTipoCliente; else loggedOut">
-                                    <h4>Cliente Natural</h4>
-                                    <div class=" form-group row">
-                                        <div class="col-3">
-                                            <select class="form-control" name="" id="">
-                                                <option value="">C</option>
-                                                <option value="">E</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-9">
-                                                <input placeholder="Nro Identificacion" type="text" class="form-control" id="inputEmail3">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                            <div class="col-6">
-                                              <input placeholder="Nombre" type="email" class="form-control" id="inputEmail3">
-                                            </div>
-                                            <div class="col-6">
-                                                    <input placeholder="Apellido" type="text" class="form-control" id="inputEmail3">
-                                            </div>
-                                    
-                                    </div>
-                                    <div class="form-group row">
-                                            <div class="col-4">
-                                              <input placeholder="Telefono" type="text" class="form-control" id="inputEmail3">
-                                            </div>
-                                            <div class="col-8">
-                                                    <input placeholder="Direccion" type="text" class="form-control" id="inputEmail3">
-                                            </div>
-                                    
-                                    </div>
-            
-                                  </div>
-                                  
-                                <ng-template #loggedOut>
-                                    <h4>Cliente Juridico</h4>
-                                    <div class=" form-group row">
-                                            <div class="col-7">
-                                                    <input placeholder="Nro Identificacion de la Empresa" type="text" class="form-control" id="inputEmail3">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                                <div class="col-8">
-                                                  <input placeholder="Nombre" type="email" class="form-control" id="inputEmail3">
-                                                </div>
-                                                <div class="col-4">
-                                                        <input placeholder="Telefono" type="text" class="form-control" id="inputEmail3">
-                                                      </div>
-                                        </div>
-                                        <div class="form-group row">
-
-                                                <div class="col-12">
-                                                        <input placeholder="Direccion" type="text" class="form-control" id="inputEmail3">
-                                                </div>
-                                        
-                                        </div>
-                                </ng-template>
-            
+        <div class="col-6">
+            <div style="margin-left: auto;" class="custom-control custom-switch">
+                <input (click)="tipoCliente()" type="checkbox" class="custom-control-input" id="tipoCliente">
+                <label class="custom-control-label" for="tipoCliente">Tipo Cliente</label>
+            </div>
+        </div>
+        <div class="col-6">
+               <div class="form-group row">
+                   <div class="col-4">
+                        <div style="margin-left: auto;" class="custom-control custom-switch">
+                                <input (click)="tipoVenta()" type="checkbox" class="custom-control-input" id="TipoFactura">
+                                <label class="custom-control-label" for="TipoFactura">Tipo Venta</label>
                             </div>
-            
+                   </div>
+                    <div class="col-3 offset-1">
+                        <button type="button"  class="btn btn-block btn-primary">Limpiar Factura</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn btn-block btn-success">Realizar Venta</button>
+                    </div>
+
+                </div>
+
+        </div>
+    </div>
+
+    <div class="row" style="bottom:10rem;">
+        <div class="col-12">
+            <form #formularioFactura="ngForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div *ngIf="!turnTipoCliente; else loggedOut">
+                            <h4>Cliente Natural</h4>
+                            <div class=" form-group row">
+                                <div class="col-3">
+                                    <select class="form-control" name="" id="">
+                                        <option value="">C</option>
+                                        <option value="">E</option>
+                                    </select>
+                                </div>
+                                <div class="col-9">
+                                    <input placeholder="Nro Identificacion" type="text" class="form-control"
+                                        id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <input placeholder="Nombre" type="email" class="form-control" id="inputEmail3">
+                                </div>
+                                <div class="col-6">
+                                    <input placeholder="Apellido" type="text" class="form-control" id="inputEmail3">
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <input placeholder="Telefono" type="text" class="form-control" id="inputEmail3">
+                                </div>
+                                <div class="col-8">
+                                    <input placeholder="Direccion" type="text" class="form-control" id="inputEmail3">
+                                </div>
+
+                            </div>
+
                         </div>
-            
-                    </form>
+
+                        <ng-template #loggedOut>
+                            <h4>Cliente Juridico</h4>
+                            <div class=" form-group row">
+                                <div class="col-7">
+                                    <input placeholder="Nro Identificacion de la Empresa" type="text"
+                                        class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-8">
+                                    <input placeholder="Nombre" type="email" class="form-control" id="inputEmail3">
+                                </div>
+                                <div class="col-4">
+                                    <input placeholder="Telefono" type="text" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+
+                                <div class="col-12">
+                                    <input placeholder="Direccion" type="text" class="form-control" id="inputEmail3">
+                                </div>
+
+                            </div>
+                        </ng-template>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12" *ngIf="!turnTipoVenta">
+                                 <h4>Venta Contado</h4>
+                                 <div class="form-group row">
+                                    <label for="subtotal"
+                                        class=" offset-3 col-sm-5 col-form-label form-control-sm">Subtotal</label>
+                                    <div class="col-sm-4">
+                                        <input id="subtotal" type="text" class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="subtotal"
+                                        class=" offset-3 col-sm-5 col-form-label form-control-sm">descuento</label>
+                                    <div class="col-sm-4">
+                                        <input id="descuento" type="text" class="form-control form-control-sm">
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label for="subtotal"
+                                        class=" offset-3 col-sm-5 col-form-label form-control-sm">IVA</label>
+                                    <div class="col-sm-4">
+                                        <input id="iva" type="text" class="form-control form-control-sm">
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label for="subtotal"
+                                        class=" offset-3 col-sm-5 col-form-label form-control-sm">Total a Pagar</label>
+                                    <div class="col-sm-4">
+                                        <input id="totalPagar" type="text" class="form-control form-control-sm">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-12" *ngIf="turnTipoVenta">
+                                 <h4>Venta Credito</h4>
+                                 <div class="form-group row">
+                                    <label for="subtotal"
+                                        class="offset-3 col-sm-5 col-form-label form-control-sm">Subtotal</label>
+                                    <div class="col-sm-4">
+                                        <input id="subtotal" type="text" class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="subtotal"
+                                        class=" offset-3 col-sm-5 col-form-label form-control-sm">descuento</label>
+                                    <div class="col-sm-4">
+                                        <input id="subtotal" type="text" class="form-control form-control-sm">
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label for="subtotal"
+                                        class=" offset-3 col-sm-5 col-form-label form-control-sm">IVA</label>
+                                    <div class="col-sm-4">
+                                        <input id="subtotal" type="text" class="form-control form-control-sm">
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label for="subtotal" class="offset-3 col-sm-5 col-form-label form-control-sm">Total
+                                        a Pagar</label>
+                                    <div class="col-sm-4">
+                                        <input id="subtotal" type="text" class="form-control form-control-sm">
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label for="subtotal" class="col-sm-2 col-form-label form-control-sm">Abonó</label>
+                                    <div class="col-sm-4">
+                                        <input id="subtotal" type="text" class="form-control form-control-sm">
+                                    </div>
+                                    <label for="subtotal" class="col-sm-2 col-form-label form-control-sm">Resta</label>
+                                    <div class="col-sm-4">
+                                        <input id="subtotal" type="text" class="form-control form-control-sm">
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
         </div>
     </div>
 
@@ -142,51 +244,53 @@
             <!-- aca ira los articulos del carrito -->
             <h4>Articulos de la Compra</h4>
             <table class="table table-light table-striped table-hover text-center">
-                    <thead>
-                        <th>codigo</th>
-                        <th>Descripcion</th>
-                        <th>Presentacion</th>
-                        <th>Precio ($)</th>
-                        <th>Cantidad</th>
-                    </thead>
+                <thead>
+                    <th>codigo</th>
+                    <th>Descripcion</th>
+                    <th>Presentacion</th>
+                    <th>Precio ($)</th>
+                    <th>Cantidad</th>
+                </thead>
             </table>
 
         </div>
         <div class="col col-sm-6">
             <!-- aca ira la busqueda de los articulos -->
             <nav class="navbar navbar-light bg-light">
-                    <span class="nav-item"><strong>Lista de Productos</strong></span>
+                <span class="nav-item"><strong>Lista de Productos</strong></span>
 
-                    <form #formularioBusqueda="ngForm" autocomplete="off" class="form-inline ml-auto">
-                        <input name="search" class="form-control mr-sm-2" type="search" placeholder="codigo" aria-label="Search"> <!-- (click)="clearSearch()" (keyup)="searchArticle(search)" [(ngModel)]="search" -->
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
-                    </form>
-                </nav>
+                <form #formularioBusqueda="ngForm" autocomplete="off" class="form-inline ml-auto">
+                    <input name="search" class="form-control mr-sm-2" type="search" placeholder="codigo"
+                        aria-label="Search">
+                    <!-- (click)="clearSearch()" (keyup)="searchArticle(search)" [(ngModel)]="search" -->
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
+                </form>
+            </nav>
 
-                <div class="table-scroll custom-scroll">
-                        <table class="table table-light table-striped table-hover text-center">
-                                <thead>
-                                    <th>codigo</th>
-                                    <th>Descripcion</th>
-                                    <th>Presentacion</th>
-                                    <th>Precio ($)</th>
-                                </thead>
-                                <tbody *ngIf="!searchState">
-                                     <tr *ngFor="let datos of dataArticulo">
-                                        <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">{{datos.codigo}}
-                                        </td>
-                                        <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">
-                                            {{datos.descripcion}}</td>
-                                        <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">
-                                            {{datos.presentacion}}</td>
-                                        <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">
-                                            {{datos.precioVenta|currency}}
-                                        </td>
-                
-                                    </tr>
-                
-                                </tbody>
-                <!--                         <tbody *ngIf="searchState">
+            <div class="table-scroll custom-scroll">
+                <table class="table table-light table-striped table-hover text-center">
+                    <thead>
+                        <th>codigo</th>
+                        <th>Descripcion</th>
+                        <th>Presentacion</th>
+                        <th>Precio ($)</th>
+                    </thead>
+                    <tbody *ngIf="!searchState">
+                        <tr *ngFor="let datos of dataArticulo">
+                            <td data-toggle="modal" data-target="#myModal">{{datos.codigo}}
+                            </td>
+                            <td data-toggle="modal" data-target="#myModal">
+                                {{datos.descripcion}}</td>
+                            <td data-toggle="modal" data-target="#myModal">
+                                {{datos.presentacion}}</td>
+                            <td data-toggle="modal" data-target="#myModal">
+                                {{datos.precioVenta|currency}}
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                    <!--                         <tbody *ngIf="searchState">
                                     <tr *ngFor="let datos of searchData">
                                         <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">{{datos.codigo}}
                                         </td>
@@ -204,8 +308,8 @@
                                         </td>
                                     </tr>
                                 </tbody> -->
-                                </table>
-                </div>
+                </table>
+            </div>
 
         </div>
     </div>

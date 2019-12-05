@@ -8,3 +8,12 @@
     display: block;
 
 }
+
+#menu{
+    margin-top: 2px;
+    padding-top: 6rem;
+}
+
+#menu ul{
+    border-radius: 5px;
+}
