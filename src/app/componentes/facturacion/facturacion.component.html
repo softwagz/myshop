@@ -59,31 +59,34 @@
             </div>
         </div>
         <div class="col-6">
-               <div class="form-group row">
-                   <div class="col-4">
-                        <div style="margin-left: auto;" class="custom-control custom-switch">
-                                <input (click)="tipoVenta()" type="checkbox" class="custom-control-input" id="TipoFactura">
-                                <label class="custom-control-label" for="TipoFactura">Tipo Venta</label>
-                            </div>
-                   </div>
-                    <div class="col-3 offset-1">
-                        <button type="button"  class="btn btn-block btn-primary">Limpiar Factura</button>
+            <div class="form-group row">
+                <div class="col-4">
+                    <div style="margin-left: auto;" class="custom-control custom-switch">
+                        <input (click)="tipoVenta()" type="checkbox" class="custom-control-input" id="TipoFactura">
+                        <label class="custom-control-label" for="TipoFactura">Tipo Venta</label>
                     </div>
-                    <div class="col-3">
-                        <button type="button" class="btn btn-block btn-success">Realizar Venta</button>
-                    </div>
-
                 </div>
+                <div class="col-3 offset-1">
+                    <button type="button" (click)="limpiarFormulario()" class="btn btn-block btn-primary">Limpiar
+                        Factura</button>
+                </div>
+                <div class="col-3">
+                    <button type="submit" (click)="saveForm()" class="btn btn-block btn-success">Realizar Venta</button>
+                </div>
+
+            </div>
 
         </div>
     </div>
 
     <div class="row" style="bottom:10rem;">
         <div class="col-12">
-            <form #formularioFactura="ngForm">
+            <form [formGroup]='facturaForm' autocomplete="off" (ngSubmit)="saveForm()">
+                <!-- Cliente y tipo de Venta -->
                 <div class="row">
+                    <!-- tipo de Cliente -->
                     <div class="col-md-6">
-                        <div *ngIf="!turnTipoCliente; else loggedOut">
+                        <div *ngIf="!turnTipoCliente; else otherForm">
                             <h4>Cliente Natural</h4>
                             <div class=" form-group row">
                                 <div class="col-3">
@@ -94,72 +97,199 @@
                                 </div>
                                 <div class="col-9">
                                     <input placeholder="Nro Identificacion" type="text" class="form-control"
-                                        id="inputEmail3">
+                                        formControlName="identificacion">
+                                    <div class="alert alert-danger"
+                                        *ngIf="identificacion.invalid && (identificacion.dirty || identificacion.touched)">
+                                        <div *ngIf="identificacion.errors.required">
+                                            Debes Llenar este campo
+                                        </div>
+                                        <div *ngIf="identificacion.errors.minlength">
+                                            Escribe al menos 5 caracteres
+                                        </div>
+                                        <div
+                                            *ngIf="(identificacion.dirty || identificacion.touched) && identificacion.invalid && identificacion.errors.pattern">
+                                            Ingresa solo numeros
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-6">
-                                    <input placeholder="Nombre" type="email" class="form-control" id="inputEmail3">
+                                    <input placeholder="Nombre" type="text" formControlName="nombre"
+                                        class="form-control">
+                                    <div class="alert alert-danger"
+                                        *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                                        <div *ngIf="nombre.errors.required">
+                                            Debes Llenar este campo
+                                        </div>
+                                        <div *ngIf="nombre.errors.minlength">
+                                            Escribe al menos 5 caracteres
+                                        </div>
+                                        <div
+                                            *ngIf="(nombre.dirty || nombre.touched) && nombre.invalid && nombre.errors.pattern">
+                                            Ingresa solo Letras
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-6">
-                                    <input placeholder="Apellido" type="text" class="form-control" id="inputEmail3">
+                                    <input placeholder="Apellido" type="text" formControlName="apellido"
+                                        class="form-control">
+                                    <div class="alert alert-danger"
+                                        *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+                                        <div *ngIf="apellido.errors.required">
+                                            Debes Llenar este campo
+                                        </div>
+                                        <div *ngIf="apellido.errors.minlength">
+                                            Escribe al menos 5 caracteres
+                                        </div>
+                                        <div
+                                            *ngIf="(apellido.dirty || apellido.touched) && apellido.invalid && apellido.errors.pattern">
+                                            Ingresa solo Letras
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
                             <div class="form-group row">
                                 <div class="col-4">
-                                    <input placeholder="Telefono" type="text" class="form-control" id="inputEmail3">
+                                    <input placeholder="Telefono" type="text" formControlName="telefono"
+                                        class="form-control">
+                                    <div class="alert alert-danger"
+                                        *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+                                        <div *ngIf="telefono.errors.required">
+                                            Debes Llenar este campo
+                                        </div>
+                                        <div *ngIf="telefono.errors.minlength">
+                                            Escribe al menos 5 caracteres
+                                        </div>
+                                        <div
+                                            *ngIf="(telefono.dirty || telefono.touched) && telefono.invalid && telefono.errors.pattern">
+                                            Ingresa solo Numeros
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-8">
-                                    <input placeholder="Direccion" type="text" class="form-control" id="inputEmail3">
+                                    <input placeholder="Direccion" type="text" formControlName="direccion"
+                                        class="form-control">
+                                    <div class="alert alert-danger"
+                                        *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)">
+                                        <div *ngIf="direccion.errors.required">
+                                            Debes Llenar este campo
+                                        </div>
+                                        <div *ngIf="direccion.errors.minlength">
+                                            Escribe al menos 5 caracteres
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
 
                         </div>
 
-                        <ng-template #loggedOut>
+                        <ng-template #otherForm>
                             <h4>Cliente Juridico</h4>
                             <div class=" form-group row">
                                 <div class="col-7">
-                                    <input placeholder="Nro Identificacion de la Empresa" type="text"
-                                        class="form-control" id="inputEmail3">
+                                    <input formControlName="identificacion"
+                                        placeholder="Nro Identificacion de la Empresa" type="text" class="form-control">
+                                    <div class="alert alert-danger"
+                                        *ngIf="identificacion.invalid && (identificacion.dirty || identificacion.touched)">
+                                        <div *ngIf="identificacion.errors.required">
+                                            Debes Llenar este campo
+                                        </div>
+                                        <div *ngIf="identificacion.errors.minlength">
+                                            Escribe al menos 5 caracteres
+                                        </div>
+                                        <div
+                                            *ngIf="(identificacion.dirty || identificacion.touched) && identificacion.invalid && identificacion.errors.pattern">
+                                            Ingresa solo Numeros
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-8">
-                                    <input placeholder="Nombre" type="email" class="form-control" id="inputEmail3">
+                                    <input placeholder="Nombre" type="text" formControlName="nombre"
+                                        class="form-control">
+                                    <div class="alert alert-danger"
+                                        *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                                        <div *ngIf="nombre.errors.required">
+                                            Debes Llenar este campo
+                                        </div>
+                                        <div *ngIf="nombre.errors.minlength">
+                                            Escribe al menos 5 caracteres
+                                        </div>
+                                        <div
+                                            *ngIf="(nombre.dirty || nombre.touched) && nombre.invalid && nombre.errors.pattern">
+                                            Ingresa solo Letras
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-4">
-                                    <input placeholder="Telefono" type="text" class="form-control" id="inputEmail3">
+                                    <input formControlName="telefono" placeholder="Telefono" type="text"
+                                        class="form-control">
+                                    <div class="alert alert-danger"
+                                        *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+                                        <div *ngIf="telefono.errors.required">
+                                            Debes Llenar este campo
+                                        </div>
+                                        <div *ngIf="telefono.errors.minlength">
+                                            Escribe al menos 5 caracteres
+                                        </div>
+                                        <div
+                                            *ngIf="(telefono.dirty || telefono.touched) && telefono.invalid && telefono.errors.pattern">
+                                            Ingresa solo Numeros
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
 
                                 <div class="col-12">
-                                    <input placeholder="Direccion" type="text" class="form-control" id="inputEmail3">
+                                    <input formControlName="direccion" placeholder="Direccion" type="text"
+                                        class="form-control">
+                                    <div class="alert alert-danger"
+                                        *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)">
+                                        <div *ngIf="direccion.errors.required">
+                                            Debes Llenar este campo
+                                        </div>
+                                        <div *ngIf="direccion.errors.minlength">
+                                            Escribe al menos 5 caracteres
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
                         </ng-template>
 
                     </div>
+                    <!-- tipo de Venta -->
                     <div class="col-md-6">
                         <div class="row">
+                            <!-- Venta a Contado -->
                             <div class="col-md-12" *ngIf="!turnTipoVenta">
-                                 <h4>Venta Contado</h4>
-                                 <div class="form-group row">
+                                <h4>Venta Contado</h4>
+                                <div class="form-group row">
                                     <label for="subtotal"
                                         class=" offset-3 col-sm-5 col-form-label form-control-sm">Subtotal</label>
                                     <div class="col-sm-4">
-                                        <input id="subtotal" type="text" class="form-control form-control-sm">
+                                        <input id="subtotal" type="text" readonly formControlName="subtotal"
+                                            value="{{subtotal|currency}}" class="form-control form-control-sm">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="subtotal"
                                         class=" offset-3 col-sm-5 col-form-label form-control-sm">descuento</label>
                                     <div class="col-sm-4">
-                                        <input id="descuento" type="text" class="form-control form-control-sm">
+                                        <input id="descuento" (keyup)="calcularTotalPagar()" type="text"
+                                            formControlName="descuentoF" class="form-control form-control-sm">
+                                        <div class="alert alert-danger"
+                                            *ngIf="descuentoF.invalid && (descuentoF.dirty || descuentoF.touched)">
+                                            <div *ngIf="descuentoF.errors.pattern">
+                                                Ingresa solo numeros
+                                            </div>
+                                        </div>
+
                                     </div>
 
                                 </div>
@@ -167,7 +297,8 @@
                                     <label for="subtotal"
                                         class=" offset-3 col-sm-5 col-form-label form-control-sm">IVA</label>
                                     <div class="col-sm-4">
-                                        <input id="iva" type="text" class="form-control form-control-sm">
+                                        <input id="iva" type="text" readonly formControlName="iva"
+                                            value="{{iva|currency}}" class="form-control form-control-sm">
                                     </div>
 
                                 </div>
@@ -175,52 +306,76 @@
                                     <label for="subtotal"
                                         class=" offset-3 col-sm-5 col-form-label form-control-sm">Total a Pagar</label>
                                     <div class="col-sm-4">
-                                        <input id="totalPagar" type="text" class="form-control form-control-sm">
+                                        <input id="totalPagar" readonly formControlName="totalPagar"
+                                            value="{{totalPagar|currency}}" type="text"
+                                            class="form-control form-control-sm">
                                     </div>
 
                                 </div>
                             </div>
+                            <!-- Venta a Credito -->
                             <div class="col-12" *ngIf="turnTipoVenta">
-                                 <h4>Venta Credito</h4>
-                                 <div class="form-group row">
+                                <h4>Venta Credito</h4>
+                                <div class="form-group row">
                                     <label for="subtotal"
                                         class="offset-3 col-sm-5 col-form-label form-control-sm">Subtotal</label>
                                     <div class="col-sm-4">
-                                        <input id="subtotal" type="text" class="form-control form-control-sm">
+                                        <input formControlName="subtotal" readonly value="{{subtotal|currency}}"
+                                            id="subtotal" type="text" class="form-control form-control-sm">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="subtotal"
+                                    <label for="descuento"
                                         class=" offset-3 col-sm-5 col-form-label form-control-sm">descuento</label>
                                     <div class="col-sm-4">
-                                        <input id="subtotal" type="text" class="form-control form-control-sm">
+                                        <input (keyup)="calcularTotalPagar()" formControlName="descuentoF" id="descuento" type="text"
+                                            class="form-control form-control-sm">
+                                        <div class="alert alert-danger"
+                                            *ngIf="descuentoF.invalid && (descuentoF.dirty || descuentoF.touched)">
+                                            <div *ngIf="descuentoF.errors.pattern">
+                                                Ingresa solo numeros
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
                                 <div class="form-group row">
-                                    <label for="subtotal"
+                                    <label for="iva"
                                         class=" offset-3 col-sm-5 col-form-label form-control-sm">IVA</label>
                                     <div class="col-sm-4">
-                                        <input id="subtotal" type="text" class="form-control form-control-sm">
+                                        <input formControlName="iva" readonly value="{{iva|currency}}" id="iva"
+                                            type="text" class="form-control form-control-sm">
                                     </div>
 
                                 </div>
                                 <div class="form-group row">
-                                    <label for="subtotal" class="offset-3 col-sm-5 col-form-label form-control-sm">Total
+                                    <label for="totalPagar"
+                                        class="offset-3 col-sm-5 col-form-label form-control-sm">Total
                                         a Pagar</label>
                                     <div class="col-sm-4">
-                                        <input id="subtotal" type="text" class="form-control form-control-sm">
+                                        <input formControlName="totalPagar" readonly value="{{totalPagar|currency}}"
+                                            id="totalPagar" type="text" class="form-control form-control-sm">
                                     </div>
 
                                 </div>
                                 <div class="form-group row">
-                                    <label for="subtotal" class="col-sm-2 col-form-label form-control-sm">Abonó</label>
+                                    <label for="abono" class="col-sm-2 col-form-label form-control-sm">Abonó</label>
                                     <div class="col-sm-4">
-                                        <input id="subtotal" type="text" class="form-control form-control-sm">
+                                        <input formControlName="abonoF" (keyup)="calcularRestaPorPagar()" id="obono" formControlName="abonoF" type="text"
+                                            class="form-control form-control-sm">
+                                            <div class="alert alert-danger"
+                                            *ngIf="abonoF.invalid && (abonoF.dirty || abonoF.touched)">
+                                            <div *ngIf="abonoF.errors.pattern">
+                                                Ingresa solo numeros
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    <label for="subtotal" class="col-sm-2 col-form-label form-control-sm">Resta</label>
+                                    <label for="restaPorCobrar"
+                                        class="col-sm-2 col-form-label form-control-sm">Resta</label>
                                     <div class="col-sm-4">
-                                        <input id="subtotal" type="text" class="form-control form-control-sm">
+                                        <input id="restaPorCobrar" readonly formControlName="restaPorCobrar" type="text"
+                                            class="form-control form-control-sm">
                                     </div>
 
                                 </div>
@@ -239,10 +394,15 @@
         </div>
     </div>
 
+    <!-- Tabla de carrito y lista de articulos -->
     <div class="row">
         <div class="col col-sm-6">
             <!-- aca ira los articulos del carrito -->
             <h4>Articulos de la Compra</h4>
+
+            <button style="margin-left: auto;" (click)="limpiarCarrito()" class="btn btn-primary">
+                Limpiar Carrito
+            </button>
             <table class="table table-light table-striped table-hover text-center">
                 <thead>
                     <th>codigo</th>
@@ -251,6 +411,15 @@
                     <th>Precio ($)</th>
                     <th>Cantidad</th>
                 </thead>
+                <tbody>
+                    <tr *ngFor="let items of carrito">
+                        <td>{{items.codigo}}</td>
+                        <td>{{items.descripcion}}</td>
+                        <td>{{items.presentacion}}</td>
+                        <td>{{items.precioVenta}}</td>
+                        <td> {{items.cantidadCompra}}</td>
+                    </tr>
+                </tbody>
             </table>
 
         </div>
@@ -259,11 +428,14 @@
             <nav class="navbar navbar-light bg-light">
                 <span class="nav-item"><strong>Lista de Productos</strong></span>
 
-                <form #formularioBusqueda="ngForm" autocomplete="off" class="form-inline ml-auto">
-                    <input name="search" class="form-control mr-sm-2" type="search" placeholder="codigo"
-                        aria-label="Search">
-                    <!-- (click)="clearSearch()" (keyup)="searchArticle(search)" [(ngModel)]="search" -->
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
+                <form #formularioBusqueda="ngForm" class="form-inline ml-auto">
+                    <input name="search" (click)="clearSearch()" (keyup)="searchArticle(search)" [(ngModel)]="search"
+                        class="form-control mr-sm-2" type="search" placeholder="codigo" aria-label="Search">
+                    <div style="margin-left: auto;" class="custom-control custom-switch">
+                        <input (click)="switchModeSearch()" type="checkbox" class="custom-control-input"
+                            id="switchModeSear">
+                        <label class="custom-control-label" for="switchModeSear">Buscar por Nombre</label>
+                    </div>
                 </form>
             </nav>
 
@@ -276,7 +448,7 @@
                         <th>Precio ($)</th>
                     </thead>
                     <tbody *ngIf="!searchState">
-                        <tr *ngFor="let datos of dataArticulo">
+                        <tr *ngFor="let datos of dataArticulo" (click)="agregarAlCarrito(datos)">
                             <td data-toggle="modal" data-target="#myModal">{{datos.codigo}}
                             </td>
                             <td data-toggle="modal" data-target="#myModal">
@@ -290,24 +462,24 @@
                         </tr>
 
                     </tbody>
-                    <!--                         <tbody *ngIf="searchState">
-                                    <tr *ngFor="let datos of searchData">
-                                        <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">{{datos.codigo}}
-                                        </td>
-                                        <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">
-                                            {{datos.descripcion}}</td>
-                                        <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">
-                                            {{datos.presentacion}}</td>
-                                        <td data-toggle="modal" data-target="#myModal" (click)="viewArticle(datos)">
-                                            {{datos.precio|currency}}</td>
-                
-                                    </tr>
-                                    <tr *ngIf="!resultState">
-                                        <td>
-                                            No se encontraron Coincidencias
-                                        </td>
-                                    </tr>
-                                </tbody> -->
+                    <tbody *ngIf="searchState">
+                        <tr *ngFor="let datos of searchData">
+                            <td data-toggle="modal" data-target="#myModal">{{datos.codigo}}
+                            </td>
+                            <td data-toggle="modal" data-target="#myModal">
+                                {{datos.descripcion}}</td>
+                            <td data-toggle="modal" data-target="#myModal">
+                                {{datos.presentacion}}</td>
+                            <td data-toggle="modal" data-target="#myModal">
+                                {{datos.precio|currency}}</td>
+
+                        </tr>
+                        <tr *ngIf="!resultState">
+                            <td>
+                                No se encontraron Coincidencias
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
 

@@ -167,8 +167,8 @@
             <nav class="navbar navbar-light bg-light">
                 <span class="nav-item"><strong>Lista de Productos</strong></span>
                 <div style="margin-left: auto;" class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                    <label class="custom-control-label" for="customSwitch1">Buscar por nombre</label>
+                    <input (click)="switchModeSearch()" type="checkbox" class="custom-control-input" id="searchMode">
+                    <label class="custom-control-label" for="searchMode">Buscar por nombre</label>
                   </div>
                 <form #formularioBusqueda="ngForm" autocomplete="off" class="form-inline ml-auto">
                     <input name="search" (click)="clearSearch()" (keyup)="searchArticle(search)" [(ngModel)]="search"

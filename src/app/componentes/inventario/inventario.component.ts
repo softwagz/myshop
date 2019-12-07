@@ -53,6 +53,7 @@ export class InventarioComponent implements OnInit {
   resultState: boolean = false;
   searchData: Articulo[];
   search: string = "";
+  searchMode:boolean=false;
 
   /*Auxiliares de Botones */
   modificarGuardar: string = "Editar";
@@ -151,8 +152,6 @@ export class InventarioComponent implements OnInit {
             } as VencimientoArticulo
           }
         );
-        console.log('se ha cargado las fechas de vencimiento');
-        console.log(this.fechasVencimientoArticulo);
       }
     );
   }
@@ -299,20 +298,47 @@ export class InventarioComponent implements OnInit {
 
   }
 
+  switchModeSearch(){
+    if(!this.searchMode){
+      this.searchMode=true;
+    }else{
+      this.searchMode=false;
+    }
+  }
+
+
   searchArticle(word: string) {
-    if (word != "" && word != undefined) {
-      this.searchData = this.dataArticulo.filter(function (val) {
-        return (val.codigo.toLowerCase().startsWith(word.toLowerCase()));
-      });
-      this.searchState = true;
-      if (this.searchData.length > 0) {
-        this.resultState = true;
+    if(!this.searchMode){
+      if (word != "" && word != undefined) {
+        this.searchData = this.dataArticulo.filter(function (val) {
+          return (val.codigo.toLowerCase().startsWith(word.toLowerCase()));
+        });
+        this.searchState = true;
+        if (this.searchData.length > 0) {
+          this.resultState = true;
+        } else {
+          this.resultState = false;
+        }
       } else {
+        this.searchState = false;
         this.resultState = false;
       }
-    } else {
-      this.searchState = false;
-      this.resultState = false;
+    }else{
+      if (word != "" && word != undefined) {
+        this.searchData = this.dataArticulo.filter(function (val) {
+          return (val.descripcion.toLowerCase().startsWith(word.toLowerCase()));
+        });
+        this.searchState = true;
+        if (this.searchData.length > 0) {
+          this.resultState = true;
+        } else {
+          this.resultState = false;
+        }
+      } else {
+        this.searchState = false;
+        this.resultState = false;
+      }
+
     }
   }
 
@@ -465,8 +491,9 @@ export class InventarioComponent implements OnInit {
   }
 
   excentoIVA(e) {
-    this.articuloSelected.iva = e.target.checked;
+    this.articulo.iva = e.target.checked;
   }
+
 
   validarForm(form: NgForm) {
     if (form.value.codigo != undefined) {
@@ -600,8 +627,6 @@ export class InventarioComponent implements OnInit {
     this.formAddValid=false;
   }
 }
-
-
   validarNumero(valor: string) {
     if (!/^([0-9])*$/.test(valor)) {
       return false;
