@@ -25,7 +25,7 @@ export class InventarioComponent implements OnInit {
   //Atributos para manejo de articulos
   dataArticulo: Articulo[];
   articulo: Articulo = new Articulo();
-  fechasVencimientoArticulo: VencimientoArticulo[];
+  fechasVencimientoArticulo: VencimientoArticulo[]=[];
   vencimiento: VencimientoArticulo = new VencimientoArticulo();
   statusAgregar: boolean = false;
   contar: number;
@@ -96,27 +96,7 @@ export class InventarioComponent implements OnInit {
 
   }
 
-  mensajeError(elemento: string, mensaje: string) {
-    $("#" + mensaje).show();
-    var pop = new Popper(document.getElementById(elemento), document.getElementById(mensaje),
-      {
-        placement: "bottom",
-        modifiers: {
-          applyStyle: { enabled: true },
-          applyReactStyle: {
-            enabled: true,
-            order: 900,
-          },
-        }
-      }
-    );
-
-    setTimeout(() => {
-      $("#" + mensaje).hide();
-    }, 4000);
-  }
-
-  ngOnInit() {
+   ngOnInit() {
     this.loadArticle();
     this.loadVencimientoArticle();
     $('#formRegister').hide();
@@ -465,8 +445,15 @@ export class InventarioComponent implements OnInit {
       count += Number.parseInt(item.cantidad);
     }
     this.contar = count;
-
-
+    this.listVencimiento.sort((a,b) => {
+      if(a.fecha.seconds>b.fecha.seconds){
+        return 1
+      }
+      if(a.fecha.seconds<b.fecha.seconds){
+        return -1
+      }
+      return 0;
+    });
   }
 
   fechasVencimientoCercanas(codigo: string) {

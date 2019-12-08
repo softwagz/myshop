@@ -281,8 +281,8 @@
                                     <label for="subtotal"
                                         class=" offset-3 col-sm-5 col-form-label form-control-sm">descuento</label>
                                     <div class="col-sm-4">
-                                        <input id="descuento" (keyup)="calcularTotalPagar()" type="text"
-                                            formControlName="descuentoF" class="form-control form-control-sm">
+                                        <input id="descuento" (keyup)="realizarCalculos()" type="text"
+                                            formControlName="descuentoF" value="{{descuento}}" class="form-control form-control-sm">
                                         <div class="alert alert-danger"
                                             *ngIf="descuentoF.invalid && (descuentoF.dirty || descuentoF.touched)">
                                             <div *ngIf="descuentoF.errors.pattern">
@@ -328,7 +328,7 @@
                                     <label for="descuento"
                                         class=" offset-3 col-sm-5 col-form-label form-control-sm">descuento</label>
                                     <div class="col-sm-4">
-                                        <input (keyup)="calcularTotalPagar()" formControlName="descuentoF" id="descuento" type="text"
+                                        <input (keyup)="realizarCalculos()" value="{{descuento}}" formControlName="descuentoF" id="descuento" type="text"
                                             class="form-control form-control-sm">
                                         <div class="alert alert-danger"
                                             *ngIf="descuentoF.invalid && (descuentoF.dirty || descuentoF.touched)">
@@ -361,7 +361,7 @@
                                 <div class="form-group row">
                                     <label for="abono" class="col-sm-2 col-form-label form-control-sm">Abonó</label>
                                     <div class="col-sm-4">
-                                        <input formControlName="abonoF" (keyup)="calcularRestaPorPagar()" id="obono" formControlName="abonoF" type="text"
+                                        <input formControlName="abonoF" value="{{abono}}" (keyup)="calcularRestaPorPagar()" id="obono" formControlName="abonoF" type="text"
                                             class="form-control form-control-sm">
                                             <div class="alert alert-danger"
                                             *ngIf="abonoF.invalid && (abonoF.dirty || abonoF.touched)">
@@ -374,7 +374,7 @@
                                     <label for="restaPorCobrar"
                                         class="col-sm-2 col-form-label form-control-sm">Resta</label>
                                     <div class="col-sm-4">
-                                        <input id="restaPorCobrar" readonly formControlName="restaPorCobrar" type="text"
+                                        <input id="restaPorCobrar" value="{{porCobrar|currency}}" readonly formControlName="restaPorCobrar" type="text"
                                             class="form-control form-control-sm">
                                     </div>
 
@@ -395,7 +395,7 @@
     </div>
 
     <!-- Tabla de carrito y lista de articulos -->
-    <div class="row">
+    <div class="row" style="margin-top: 35px;">
         <div class="col col-sm-6">
             <!-- aca ira los articulos del carrito -->
             <h4>Articulos de la Compra</h4>

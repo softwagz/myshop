@@ -3,12 +3,17 @@ import {Articulo} from './articulo';
 export class Factura {
 
 id:string;
-fecha:Date;
-numeroFactura:string;
-cliente:Cliente;
+apellido:string;
+descuentoF:string;
+direccion:string;
+identificacion:string;
+iva:number;
+nombre:string;
+subtotal:number;
+telefono:string;
+totalPagar:number;
+/* fecha:Date;
+ numeroFactura:string;*/
 articulos:Articulo[];
-tipoVenta:number;
-tipoCliente:number;
-
 
 }
