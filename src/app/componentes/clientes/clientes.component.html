@@ -1,52 +1,52 @@
 <div class="container-fluid" id="principal">
-        <div class="row menu" id="menu">
-                <div class="col-lg-5 items-menu" >
-                    <ul style="list-style: none; display: inline-flex; background: rgba(0, 0, 0, 0.486)">
-                        <li>
-                            <a class="badge" href="#" routerLink="/principal">
-                                <i class="fas fa-home fa-2x"></i><br />
-                                <span class="badge badge-dark">Inicio</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="badge" href="#" routerLink="/ventas">
-                                <i class="fas fa-comments-dollar fa-2x"></i><br />
-                                <span class="badge badge-dark">Ventas</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="badge" href="#" routerLink="/clientes">
-                                <i class="fas fa-users fa-2x"></i>
-                                <br />
-                                <span class="badge badge-dark">Clientes</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="badge" href="#" routerLink="/facturas">
-                                <i class="far fa-clipboard fa-2x"></i> <br />
-                                <span class="badge badge-dark">Facturas</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="badge" href="#" routerLink="/inventario">
-                                <i class="fas fa-door-open fa-2x"></i> <br />
-                                <span class="badge badge-dark">Inventario</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="badge" href="#" routerLink="/proveedores">
-                                <i class="fas fa-shipping-fast fa-2x"></i> <br />
-                                <span class="badge badge-dark">Proveedores</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="badge" href="#" routerLink="/login" (click)="singOut()">
-                                <i class="fas fa-power-off fa-2x"></i> <br />
-                                <span class="badge badge-dark">Salir</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+    <div class="row menu" id="menu">
+        <div class="col-lg-5 items-menu">
+            <ul style="list-style: none; display: inline-flex;">
+                <li>
+                    <a class="badge" href="#" routerLink="/principal">
+                        <i class="fas fa-home fa-2x"></i><br />
+                        <span class="badge badge-dark">Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/ventas">
+                        <i class="fas fa-comments-dollar fa-2x"></i><br />
+                        <span class="badge badge-dark">Ventas</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/clientes">
+                        <i class="fas fa-users fa-2x"></i>
+                        <br />
+                        <span class="badge badge-dark">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/facturas">
+                        <i class="far fa-clipboard fa-2x"></i> <br />
+                        <span class="badge badge-dark">Facturas</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/inventario">
+                        <i class="fas fa-door-open fa-2x"></i> <br />
+                        <span class="badge badge-dark">Inventario</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/proveedores">
+                        <i class="fas fa-shipping-fast fa-2x"></i> <br />
+                        <span class="badge badge-dark">Proveedores</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/login" (click)="singOut()">
+                        <i class="fas fa-power-off fa-2x"></i> <br />
+                        <span class="badge badge-dark">Salir</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
         <div class="col-lg-7 text-center">
             <h2>Clientes <i class="fas fa-users"></i></h2>
         </div>
@@ -58,32 +58,87 @@
             <div class="card" id="formularioRegistro">
                 <img src="http://www.clker.com/cliparts/5/d/1/e/1370391880452134127business_users-1.png" alt="img-log"
                     class="card-img-top">
-                    <h3 style="font-family: serif; text-align: center;" >Registrar Cliente</h3>
+                <h3 style="font-family: serif; text-align: center;">Registrar Cliente</h3>
                 <div class="card-body">
-                    <form #formCliente="ngForm" autocomplete="off" (submit)="registerClientes(formCliente)">
+                    <form [formGroup]="formCliente" autocomplete="off" (submit)="registerClientes()">
                         <div class="form-group">
-                            <input id="cardCliente" name="identificacion" [(ngModel)]="cliente.identificacion"
-                                type="text" class="form-control" placeholder="identificacion">
+                            <input id="cardCliente" name="identificacion" formControlName="identificacion" type="number"
+                                class="form-control" placeholder="identificacion">
+                            <div class="alert alert-danger"
+                                *ngIf="identificacion.invalid && (identificacion.dirty || identificacion.touched)">
+                                <div *ngIf="identificacion.errors.required">
+                                    Debes Llenar este campo
+                                </div>
+                                <div *ngIf="identificacion.errors.minlength">
+                                    Escribe al menos 5 caracteres
+                                </div>
+                                <div
+                                    *ngIf="(identificacion.dirty || identificacion.touched) && identificacion.invalid && identificacion.errors.pattern">
+                                    Ingresa solo Numeros
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <input name="nombre" [(ngModel)]="cliente.nombre" type="text" class="form-control"
+                            <input name="nombre" formControlName="nombre" type="text" class="form-control"
                                 placeholder="nombre">
+                            <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                                <div *ngIf="nombre.errors.required">
+                                    Debes Llenar este campo
+                                </div>
+                                <div
+                                    *ngIf="(nombre.dirty || nombre.touched) && nombre.invalid && nombre.errors.pattern">
+                                    Ingresa solo Letras
+                                </div>
+
+                            </div>
                         </div>
                         <div class="form-group">
-                            <input name="apellido" [(ngModel)]="cliente.apellido" type="text" class="form-control"
+                            <input name="apellido" formControlName="apellido" type="text" class="form-control"
                                 placeholder="apellido">
+                            <div class="alert alert-danger"
+                                *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+                                <div *ngIf="apellido.errors.required">
+                                    Debes Llenar este campo
+                                </div>
+                                <div
+                                    *ngIf="(apellido.dirty || apellido.touched) && apellido.invalid && apellido.errors.pattern">
+                                    Ingresa solo Letras
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <input name="telefono" [(ngModel)]="cliente.telefono" type="text" class="form-control"
+                            <input name="telefono" formControlName="telefono" type="number" class="form-control"
                                 placeholder="telefono">
+                            <div class="alert alert-danger"
+                                *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+                                <div *ngIf="telefono.errors.required">
+                                    Debes Llenar este campo
+                                </div>
+                                <div *ngIf="telefono.errors.minlength">
+                                    Escribe al menos 5 caracteres
+                                </div>
+                                <div
+                                    *ngIf="(telefono.dirty || telefono.touched) && telefono.invalid && telefono.errors.pattern">
+                                    Ingresa solo Numeros
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <input name="direccion" [(ngModel)]="cliente.direccion" type="text" class="form-control"
+                            <input name="direccion" formControlName="direccion" type="text" class="form-control"
                                 placeholder="Direccion">
+                            <div class="alert alert-danger"
+                                *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)">
+                                <div *ngIf="direccion.errors.required">
+                                    Debes Llenar este campo
+                                </div>
+                                <div *ngIf="direccion.errors.minlength">
+                                    Escribe al menos 5 caracteres
+                                </div>
+
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-warning btn-block">Registrar</button>
-                        <button type="button" class="btn btn-dark btn-block"
-                            (click)="resetForm(formCliente)">Limpiar</button>
+                        <button type="button" class="btn btn-dark btn-block" (click)="resetForm()">Limpiar</button>
                     </form>
                 </div>
             </div>
@@ -92,9 +147,13 @@
         <div class="col-md-8">
             <nav class="navbar navbar-light bg-light">
                 <span class="nav-item"><strong>Lista de Clientes</strong></span>
+                <div style="margin-left: auto;" class="custom-control custom-switch">
+                    <input (click)="switchModeSearch()" type="checkbox" class="custom-control-input" id="searchMode">
+                    <label class="custom-control-label" for="searchMode">Busqueda Nombre/Apellido</label>
+                </div>
                 <form #formularioBusqueda="ngForm" autocomplete="off" class="form-inline ml-auto">
                     <input name="search" class="form-control mr-sm-2" (keyup)="searchClient(search)" type="search"
-                        [(ngModel)]="search" placeholder="Buscar Cliente" aria-label="Search">
+                        [(ngModel)]="search" placeholder="{{tipoBusqueda}}" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="button"
                         (click)="searchClient(search)">Search</button>
                 </form>
@@ -146,7 +205,7 @@
                     aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <form #formularioModificar="ngForm">
+                            <form [formGroup]="formCliente">
 
                                 <div class="modal-header">
                                     <h4 class="modal-title" id="myModalLabel">Cliente</h4>
@@ -156,13 +215,25 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <input type="hidden" name="id" [(ngModel)]="clienteSelected.id">
+                                    <input type="hidden" name="id" formControlName="id">
                                     <div class="form-group row">
                                         <label for="staticEmail" class="col-sm-2 col-form-label">Nombre:</label>
                                         <div class="col-sm-6">
                                             <input class="formularioEdit" type="text" readonly
                                                 class="form-control-plaintext" name="nombre" id="nombre"
-                                                [(ngModel)]="clienteSelected.nombre">
+                                                formControlName="nombre">
+                                            <div class="alert alert-danger"
+                                                *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                                                <div *ngIf="nombre.errors.required">
+                                                    Debes Llenar este campo
+                                                </div>
+                                                <div
+                                                    *ngIf="(nombre.dirty || nombre.touched) && nombre.invalid && nombre.errors.pattern">
+                                                    Ingresa solo Letras
+                                                </div>
+
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -170,7 +241,18 @@
                                         <div class="col-sm-6">
                                             <input class="formularioEdit" type="text" readonly
                                                 class="form-control-plaintext" name="apellido" id="apellido"
-                                                [(ngModel)]="clienteSelected.apellido">
+                                                formControlName="apellido">
+                                            <div class="alert alert-danger"
+                                                *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+                                                <div *ngIf="apellido.errors.required">
+                                                    Debes Llenar este campo
+                                                </div>
+                                                <div
+                                                    *ngIf="(apellido.dirty || apellido.touched) && apellido.invalid && apellido.errors.pattern">
+                                                    Ingresa solo Letras
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -178,14 +260,32 @@
                                         <div class="col-sm-6">
                                             <input class="formularioEdit" type="text" readonly
                                                 class="form-control-plaintext" name="telefono" id="telefono"
-                                                [(ngModel)]="clienteSelected.telefono">
+                                                formControlName="telefono">
+                                            <div class="alert alert-danger"
+                                                *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+                                                <div *ngIf="telefono.errors.required">
+                                                    Debes Llenar este campo
+                                                </div>
+                                                <div
+                                                    *ngIf="(telefono.dirty || telefono.touched) && telefono.invalid && telefono.errors.pattern">
+                                                    Ingresa solo Numeros
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="direccion" class="col-sm-2 col-form-label">Direccion:</label>
                                         <div class="col-sm-6">
                                             <input class="algo" type="text" readonly class="form-control-plaintext"
-                                                name="direccion" id="direccion" [(ngModel)]="clienteSelected.direccion">
+                                                name="direccion" id="direccion" formControlName="direccion">
+                                            <div class="alert alert-danger"
+                                                *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)">
+                                                <div *ngIf="direccion.errors.required">
+                                                    Debes Llenar este campo
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -193,7 +293,7 @@
                                             (click)="cancelContact()"
                                             data-dismiss="modal">{{cancelarContactar}}</button>
                                         <button id="saveModif" type="button" class="btn btn-primary"
-                                            (click)="modificarCliente(formularioModificar)">{{modificarGuardar}}</button>
+                                            (click)="modificarCliente()">{{modificarGuardar}}</button>
                                     </div>
 
                                 </div>

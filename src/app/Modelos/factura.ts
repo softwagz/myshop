@@ -12,6 +12,7 @@ nombre:string;
 subtotal:number;
 telefono:string;
 totalPagar:number;
+fecha:Date;
 /* fecha:Date;
  numeroFactura:string;*/
 articulos:Articulo[];

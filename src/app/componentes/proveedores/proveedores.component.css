@@ -1,6 +1,15 @@
+
 #menu{
     margin-top: 2px;
     padding-top: 6rem;
+    background-image: url('/assets/whitebg.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+#menu .items-menu ul{
+background-color: rgb(37, 0, 31);
 }
 
 #menu ul{

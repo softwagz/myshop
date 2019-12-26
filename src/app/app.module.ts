@@ -10,6 +10,7 @@ import {AngularFireAuthModule,AngularFireAuth} from '@angular/fire/auth';
 import {Routes,RouterModule} from '@angular/router';
 import {ToastrModule} from 'ngx-toastr';
 import {AuthGuard} from './seguridad/auth.guard';
+import {ChartsModule} from 'ng2-charts'
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './componentes/login/login.component';
@@ -54,7 +55,8 @@ const rout:Routes = [
     RouterModule.forRoot(rout),
     AngularFireAuthModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ChartsModule
   ],
   providers: [LoginService,ClientesService,InventarioService,AngularFireAuth,AuthGuard],
   bootstrap: [AppComponent]
