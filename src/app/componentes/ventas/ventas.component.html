@@ -1,58 +1,565 @@
 <div class="container-fluid">
-        <div class="row menu" id="menu">
-                <div class="col-lg-5 items-menu" >
-                    <ul style="list-style: none; display: inline-flex; background: rgba(0, 0, 0, 0.486)">
-                        <li>
-                            <a class="badge" href="#" routerLink="/principal">
-                                <i class="fas fa-home fa-2x"></i><br />
-                                <span class="badge badge-dark">Inicio</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="badge" href="#" routerLink="/ventas">
-                                <i class="fas fa-comments-dollar fa-2x"></i><br />
-                                <span class="badge badge-dark">Ventas</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="badge" href="#" routerLink="/clientes">
-                                <i class="fas fa-users fa-2x"></i>
-                                <br />
-                                <span class="badge badge-dark">Clientes</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="badge" href="#" routerLink="/facturas">
-                                <i class="far fa-clipboard fa-2x"></i> <br />
-                                <span class="badge badge-dark">Facturas</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="badge" href="#" routerLink="/inventario">
-                                <i class="fas fa-door-open fa-2x"></i> <br />
-                                <span class="badge badge-dark">Inventario</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="badge" href="#" routerLink="/proveedores">
-                                <i class="fas fa-shipping-fast fa-2x"></i> <br />
-                                <span class="badge badge-dark">Proveedores</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="badge" href="#" routerLink="/login" (click)="singOut()">
-                                <i class="fas fa-power-off fa-2x"></i> <br />
-                                <span class="badge badge-dark">Salir</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+    <div class="row menu" id="menu">
+        <div class="col-lg-5 items-menu">
+            <ul style="list-style: none; display: inline-flex;">
+                <li>
+                    <a class="badge" href="#" routerLink="/principal">
+                        <i class="fas fa-home fa-2x"></i><br />
+                        <span class="badge badge-dark">Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/ventas">
+                        <i class="fas fa-comments-dollar fa-2x"></i><br />
+                        <span class="badge badge-dark">Ventas</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/clientes">
+                        <i class="fas fa-users fa-2x"></i>
+                        <br />
+                        <span class="badge badge-dark">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/facturas">
+                        <i class="far fa-clipboard fa-2x"></i> <br />
+                        <span class="badge badge-dark">Facturas</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/inventario">
+                        <i class="fas fa-door-open fa-2x"></i> <br />
+                        <span class="badge badge-dark">Inventario</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/proveedores">
+                        <i class="fas fa-shipping-fast fa-2x"></i> <br />
+                        <span class="badge badge-dark">Proveedores</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="badge" href="#" routerLink="/login" (click)="singOut()">
+                        <i class="fas fa-power-off fa-2x"></i> <br />
+                        <span class="badge badge-dark">Salir</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
 
         <div class="col-lg-7 text-center">
-            <h2>Ventas</h2>
+            <h2>Ventas <i class="fas fa-comments-dollar"></i></h2>
         </div>
     </div>
     <div class="row">
-        
+        <div class="col-md-6">
+            <button style="margin-left: 20px;margin-bottom: 30px;" id="btnMostrarBusqueda" (click)="mostrarBuscador()"
+                class="btn btn-dark"> Realizar Busqueda
+                <i style="color:rgb(243, 210, 24)" class="far fa-eye"></i>
+            </button>
+            <div *ngIf="statusMostrarBusqueda" style="margin-bottom: 2rem;" class="row">
+                <div class="offset-1 col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" (change)="tipoBusqueda($event)" type="radio" name="busqueda"
+                            value="0" id="busqueda0" checked>
+                        <label class="form-check-label" for="busqueda0">
+                            Sin Busqueda
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-check">
+                        <input class="form-check-input" (change)="tipoBusqueda($event)" type="radio" name="busqueda"
+                            value="1" id="busqueda2">
+                        <label class="form-check-label badge badge-pill badge-light" style="font-size: medium;"
+                            for="busqueda2">
+                            Intervalo
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" (change)="tipoBusqueda($event)" type="radio" name="busqueda"
+                            value="2" id="busqueda1">
+                        <label class="form-check-label badge badge-pill badge-light" style="font-size: medium;"
+                            for="busqueda1">
+                            Fecha Especifica
+                        </label>
+                    </div>
+
+                </div>
+
+            </div>
+            <div *ngIf="statusMostrarBusqueda" class="row" style="height: 80px;margin-bottom: 10px;">
+                <div class="col-md-12">
+                    <form #formDefault="ngForm">
+                        <div *ngIf="turnTipoBusqueda=='1'" class="form-group row">
+                            <label class="col-form-label col-sm-2" for="fecha1">Desde</label>
+                            <div class="col-sm-4">
+                                <input type="date" [(ngModel)]="fecha1" name="fecha1"
+                                    class="form-control form-control-sm">
+                            </div>
+                            <label class="col-form-label col-sm-2" for="fecha1">Hasta</label>
+                            <div class="col-sm-4">
+                                <input type="date" [(ngModel)]="fecha2" name="fecha2"
+                                    class="form-control form-control-sm">
+                            </div>
+                            <div class=" offset-8 col-sm-4">
+                                <button type="button" (click)="busquedaFactura()" class="btn btn-block btn-warning">
+                                    Consultar <i class="far fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <form #formDefault2="ngForm">
+                        <div *ngIf="turnTipoBusqueda=='2'" class="form-group row">
+                            <label class="col-form-label offset-1 col-sm-4" for="fecha1">Seleccione una fecha</label>
+                            <div class="col-sm-4">
+                                <input type="date" [(ngModel)]="fecha1" name="fecha1"
+                                    class="form-control form-control-sm">
+                            </div>
+                            <button type="button" (click)="busquedaFactura()" class="btn btn-warning">
+                                Consultar <i class="far fa-eye"></i>
+                            </button>
+
+                        </div>
+                    </form>
+                    <div *ngIf="turnTipoBusqueda=='0'" class="form-group row">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row" *ngIf="!tipoFacturas">
+                <div class="col-md-12">
+                    <div class="form-group row" style="text-align: right;">
+                        <label for="totalVendido" class="col-form-label-sm col-sm-4 offset-1">Total Vendido del
+                            Dia</label>
+                        <div class="col-md-4">
+                            <input
+                                style="border: 3px solid blue ;background-color: rgb(255, 255, 255);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
+                                id="totalVendido" readonly type="text" value="{{totalVendido|currency}}"
+                                class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="text-align: right;">
+                        <label for="totalGananciaDia" class="col-form-label-sm col-sm-4 offset-1">Total Ganancia del
+                            Dia</label>
+                        <div class="col-md-4">
+                            <input
+                                style="border: 3px solid blue ;background-color: rgb(255, 255, 255);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
+                                id="totalGananciaDia" value="{{gananciaDelDia|currency}}" readonly type="text"
+                                class="form-control form-control-sm">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row" *ngIf="tipoFacturas">
+                <div class="col-md-12">
+                    <div class="form-group row" style="text-align: right;">
+                        <label for="totalVendidoCredito" class="col-form-label-sm col-sm-4 offset-1">Total Vendido dia</label>
+                        <div class="col-md-4">
+                            <input
+                                style="border: 3px solid blue ;background-color: rgb(255, 255, 255);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
+                                id="totalVendidoCredito" readonly type="text" value="{{totalVendidoCredito|currency}}"
+                                class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="text-align: right;">
+                        <label for="totalGananciaDia2" class="col-form-label-sm col-sm-4 offset-1">Total de Ganancia
+                            dia</label>
+                        <div class="col-md-4">
+                            <input
+                                style="border: 3px solid blue ;background-color: rgb(255, 255, 255);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
+                                id="totalGananciaDia2" value="{{totalGananciaCredito|currency}}" readonly type="text"
+                                class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="text-align: right;">
+                        <label for="totalCobrarDia" class="col-form-label-sm col-sm-4 offset-1">Total por Cobrar del dia</label>
+                        <div class="col-md-4">
+                            <input
+                                style="border: 3px solid blue ;background-color: rgb(255, 255, 255);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
+                                id="totalCobrarDia" value="{{totalRestaPorCobrar|currency}}" readonly type="text"
+                                class="form-control form-control-sm">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" *ngIf="statusFilter">
+                <div *ngIf="!tipoFacturas" class="col-md-12">
+                    <section>
+                        <h3>Resultado de Busqueda</h3>
+                        <p> Se muestra los datos en el lapso de tiempo de la busqueda</p>
+
+                    </section>
+                    <div class="form-group row" style="text-align: right;">
+                        <label for="totalVendidoBusqueda" class="col-form-label-sm col-sm-4 offset-1">Total Vendido</label>
+                        <div class="col-md-4">
+                            <input
+                                style="border: 3px solid blue ;background-color: rgb(255, 255, 255);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
+                                id="totalVendidoBusqueda" readonly type="text" value="{{totalVendidoBusqueda|currency}}"
+                                class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="text-align: right;">
+                        <label for="totalGanancia2" class="col-form-label-sm col-sm-4 offset-1">Total de Ganancia</label>
+                        <div class="col-md-4">
+                            <input
+                                style="border: 3px solid blue ;background-color: rgb(255, 255, 255);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
+                                id="totalGanancia2" value="{{totalGananciaBusqueda|currency}}" readonly type="text"
+                                class="form-control form-control-sm">
+                        </div>
+                    </div>
+
+                </div>
+                <div *ngIf="tipoFacturas" class="col-md-12">
+                    <section>
+                        <h3>Resultado de Busqueda</h3>
+                        <p> Se muestra los datos en el lapso de tiempo de la busqueda</p>
+
+                    </section>
+                    <div class="form-group row" style="text-align: right;">
+                        <label for="totalVendidoBusqueda" class="col-form-label-sm col-sm-4 offset-1">Total Vendido</label>
+                        <div class="col-md-4">
+                            <input
+                                style="border: 3px solid blue ;background-color: rgb(255, 255, 255);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
+                                id="totalVendidoBusqueda" readonly type="text" value="{{totalVendidoBusqueda|currency}}"
+                                class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="text-align: right;">
+                        <label for="totalGanancia" class="col-form-label-sm col-sm-4 offset-1">Total de Ganancia</label>
+                        <div class="col-md-4">
+                            <input
+                                style="border: 3px solid blue ;background-color: rgb(255, 255, 255);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
+                                id="totalGanancia" value="{{totalGananciaBusqueda|currency}}" readonly type="text"
+                                class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="text-align: right;">
+                        <label for="totalGanancia" class="col-form-label-sm col-sm-4 offset-1">Resta por Cobrar</label>
+                        <div class="col-md-4">
+                            <input
+                                style="border: 3px solid blue ;background-color: rgb(255, 255, 255);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
+                                 value="{{totalRestaPorCobrarBusqueda|currency}}" readonly type="text"
+                                class="form-control form-control-sm">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="form-group row" style="margin-bottom: 2px;">
+        <div class="col-md-2 offset-1">
+            <input class="form-check-input" (change)="turnFactura()" type="radio" name="exampleRadios"
+                id="exampleRadios1" value="option1" checked>
+            <label class="form-check-label" for="exampleRadios1">
+                Venta Contado
+            </label>
+        </div>
+        <div class="col-md-2">
+            <input class="form-check-input" (change)="turnFactura()" type="radio" name="exampleRadios"
+                id="exampleRadios2" value="option2">
+            <label class="form-check-label" for="exampleRadios2">
+                Venta Credito
+            </label>
+        </div>
+
+
+
+    </div>
+    <div class="row" *ngIf="!tipoFacturas">
+        <div class="col-md-6">
+            <div class="table-scroll custom-scroll">
+
+                <table class="table table-striped table-light table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Numero</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="!statusFilter">
+                        <tr *ngFor="let factura of facturasContado" (click)="viewFactura(factura)">
+                            <th scope="row"> {{factura.fecha|date}}</th>
+                            <td>{{factura.nroFactura}}</td>
+                            <td>{{factura.identificacion}} {{factura.nombre}} {{factura.apellido}}</td>
+                            <td>{{factura.totalPagar|currency}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="statusFilter">
+                        <tr *ngFor="let factura of facturaFilter" (click)="viewFactura(factura)">
+                            <th scope="row"> {{factura.fecha|date}}</th>
+                            <td>{{factura.nroFactura}}</td>
+                            <td>{{factura.identificacion}} {{factura.nombre}} {{factura.apellido}}</td>
+                            <td>{{factura.totalPagar|currency}}</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+        <div class="col-md-6 collapse" id="facturaContent">
+            <h2>Detalle de <span class="badge badge-warning ">Factura</span></h2>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="fecha">Fecha</label>
+                    <input type="text" readonly class="form-control readonlyInput" id="fecha"
+                        value="{{facturaSelected.fecha|date}}">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="cliente">Cliente</label>
+                    <input type="email" readonly class="form-control readonlyInput" id="cliente"
+                        value="{{facturaSelected.identificacion}} {{facturaSelected.nombre}} {{facturaSelected.apellido}}">
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-8">
+                    <label for="direccion">Direccion</label>
+                    <input type="text" readonly class="form-control readonlyInput" id="direccion"
+                        value="{{facturaSelected.direccion}}">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="subtotal">Subtotal</label>
+                    <input type="text" readonly class="form-control readonlyInput" id="subtotal"
+                        value="{{facturaSelected.subtotal|currency}}">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="iva">IVA</label>
+                    <input type="text" readonly class="form-control readonlyInput" id="iva"
+                        value="{{facturaSelected.iva|currency}}">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="descuento">Descuento</label>
+                    <input type="text" readonly class="form-control readonlyInput" id="descuento"
+                        value="{{facturaSelected.descuentoF|currency}}">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="total">Total</label>
+                    <input type="text" readonly class="form-control readonlyInput" id="total"
+                        value="{{facturaSelected.totalPagar|currency}}">
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="col-md-12">
+                    <h4>Lista de <span class="badge badge-secondary">Articulos</span></h4>
+
+                    <table class="table table-striped table-light table-hover table-sm">
+                        <thead>
+                            <th>Codigo</th>
+                            <th>Descripcion</th>
+                            <th>Presentacion</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of facturaSelected.articulos">
+                                <td>{{item.codigo}}</td>
+                                <td>{{item.descripcion}}</td>
+                                <td>{{item.presentacion}}</td>
+                                <td>{{item.precioVenta}}</td>
+                                <td>{{item.cantidadCompra}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+    <div class="row" *ngIf="tipoFacturas">
+        <div class="col-md-6">
+            <div class="table-scroll custom-scroll">
+
+                <table class="table table-striped table-light table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Numero</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="!statusFilter">
+                        <tr *ngFor="let factura of facturasCredito" (click)="viewFactura(factura)">
+                            <th scope="row"> {{factura.fecha|date}}</th>
+                            <td>{{factura.nroFactura}}</td>
+                            <td>{{factura.identificacion}} {{factura.nombre}} {{factura.apellido}}</td>
+                            <td>{{factura.totalPagar|currency}}</td>
+                        </tr>
+
+
+                    </tbody>
+                    <tbody *ngIf="statusFilter">
+                        <tr *ngFor="let factura of facturaFilterCredito" (click)="viewFactura(factura)">
+                            <th scope="row"> {{factura.fecha|date}}</th>
+                            <td>{{factura.nroFactura}}</td>
+                            <td>{{factura.identificacion}} {{factura.nombre}} {{factura.apellido}}</td>
+                            <td>{{factura.totalPagar|currency}}</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="col-md-6 collapse" id="facturaContent">
+            <h2>Detalle de <span class="badge badge-warning ">Factura</span></h2>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="fecha">Fecha</label>
+                    <input type="text" readonly class="form-control readonlyInput" id="fecha"
+                        value="{{facturaSelected.fecha|date}}">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="cliente">Cliente</label>
+                    <input type="email" readonly class="form-control readonlyInput" id="cliente"
+                        value="{{facturaSelected.identificacion}} {{facturaSelected.nombre}} {{facturaSelected.apellido}}">
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-8">
+                    <label for="direccion">Direccion</label>
+                    <input type="text" readonly class="form-control readonlyInput" id="direccion"
+                        value="{{facturaSelected.direccion}}">
+                </div>
+            </div>
+            <div class="form row">
+                <div class="form-group col-md-3">
+                    <label for="subtotal">Subtotal</label>
+                    <input type="text" readonly class="form-control readonlyInput" id="subtotal"
+                        value="{{facturaSelected.subtotal|currency}}">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="iva">IVA</label>
+                    <input type="text" readonly class="form-control readonlyInput" id="iva"
+                        value="{{facturaSelected.iva|currency}}">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="descuento">Descuento</label>
+                    <input type="text" readonly class="form-control readonlyInput" id="descuento"
+                        value="{{facturaSelected.descuentoF|currency}}">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="total">Total</label>
+                    <input type="text" readonly class="form-control readonlyInput" id="total"
+                        value="{{facturaSelected.totalPagar|currency}}">
+                </div>
+
+            </div>
+            <form [formGroup]="formAbono" (submit)="actualizarRestaPorCobrar()">
+                <div class="form-row" *ngIf="tipoFacturas">
+                    <div class="form-group col-md-4">
+                        <label for="abono">Abono</label>
+                        <input formControlName="abono" type="number" name="abono" class="form-control readonlyInput"
+                            id="abono" value="">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="resta">Resta</label>
+                        <input type="text" name="resta" readonly class="form-control readonlyInput" id="resta"
+                            value="{{facturaSelected.restaPorCobrar|currency}}">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <button style="margin-top: 30px;" type="submit"
+                            class="btn btn-secondary btn-block">
+                            Abonar</button>
+                    </div>
+                </div>
+            </form>
+            <div class="form-row">
+                <div class="col-md-12">
+                    <h4>Lista de <span class="badge badge-secondary">Articulos</span></h4>
+
+                    <table class="table table-striped table-light table-hover table-sm">
+                        <thead>
+                            <th>Codigo</th>
+                            <th>Descripcion</th>
+                            <th>Presentacion</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of facturaSelected.articulos">
+                                <td>{{item.codigo}}</td>
+                                <td>{{item.descripcion}}</td>
+                                <td>{{item.presentacion}}</td>
+                                <td>{{item.precioVenta}}</td>
+                                <td>{{item.cantidadCompra}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="offset-1 col-md-4">
+            <button class="btn btn-warning" (click)="mostrarGraficas()"> Ver Graficas de Venta</button>
+        </div>
+    </div>
+    <div class="row" *ngIf="graficaStatus">
+        <div class="offset-2 col-md-3">
+            <button class="btn btn-secondary btn-block" (click)="graficaTrimestral()"> Mostrar Trimestre</button>
+        </div>
+        <div class="form-group col-md-3 offset-1">
+            <button class="btn btn-success btn-block" (click)="graficaSemestral()"> Mostrar Semestre</button>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 3rem;" *ngIf="graficaStatus">
+        <div class="col-md-12">
+            <div class="flex">
+                <div class="flex-item">
+                    <div style="display: block;">
+                        <canvas baseChart width="400" height="160" [datasets]="lineChartData" [labels]="lineChartLabels"
+                            [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                            [chartType]="lineChartType" [plugins]="lineChartPlugins" (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="offset-1 col-md-7" style="margin-top: 30px;">
+            <div class="flex-item">
+                <table class="table table-responsive table-condensed">
+                    <tr>
+                        <th *ngFor="let label of lineChartLabels">{{label}}</th>
+                    </tr>
+                    <tr *ngFor="let d of lineChartData; let i=index" [class]="'line-'+i">
+                        <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
 </div>

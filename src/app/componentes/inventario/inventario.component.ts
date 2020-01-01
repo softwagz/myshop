@@ -25,7 +25,7 @@ export class InventarioComponent implements OnInit {
   //Atributos para manejo de articulos
   dataArticulo: Articulo[];
   articulo: Articulo = new Articulo();
-  fechasVencimientoArticulo: VencimientoArticulo[];
+  fechasVencimientoArticulo: VencimientoArticulo[] = [];
   vencimiento: VencimientoArticulo = new VencimientoArticulo();
   statusAgregar: boolean = false;
   contar: number;
@@ -36,7 +36,7 @@ export class InventarioComponent implements OnInit {
     presentacion: "",
     stockMinimo: 0,
     stockMaximo: 0,
-    iva: true,
+    iva: false,
     descuento: 0,
     precio: 0,
     precioVenta: 0
@@ -53,12 +53,13 @@ export class InventarioComponent implements OnInit {
   resultState: boolean = false;
   searchData: Articulo[];
   search: string = "";
+  searchMode: boolean = false;
 
   /*Auxiliares de Botones */
   modificarGuardar: string = "Editar";
   cancelarCerrar = "Cerrar";
-  statusEdit:boolean = false;
-  mostrarFormulario:boolean=false;
+  statusEdit: boolean = false;
+  mostrarFormulario: boolean = false;
 
   /* Validadores de Formulario */
 
@@ -78,9 +79,8 @@ export class InventarioComponent implements OnInit {
   minEdit: boolean = false;
   maxEdit: boolean = false;
   formValidoEdit: boolean = false;
-
-  cantidadAdd:boolean=false;
-  formAddValid:boolean=false;
+  cantidadAdd: boolean = false;
+  formAddValid: boolean = false;
 
 
 
@@ -93,26 +93,6 @@ export class InventarioComponent implements OnInit {
       confirmButtonText: 'Cool'
     })  */
 
-  }
-
-  mensajeError(elemento: string, mensaje: string) {
-    $("#" + mensaje).show();
-    var pop = new Popper(document.getElementById(elemento), document.getElementById(mensaje),
-      {
-        placement: "bottom",
-        modifiers: {
-          applyStyle: { enabled: true },
-          applyReactStyle: {
-            enabled: true,
-            order: 900,
-          },
-        }
-      }
-    );
-
-    setTimeout(() => {
-      $("#" + mensaje).hide();
-    }, 4000);
   }
 
   ngOnInit() {
@@ -151,66 +131,74 @@ export class InventarioComponent implements OnInit {
             } as VencimientoArticulo
           }
         );
-        console.log('se ha cargado las fechas de vencimiento');
-        console.log(this.fechasVencimientoArticulo);
       }
     );
   }
   //Manipulacion de Articulos
   registerArticle(form: NgForm) {
-    if (form.valid) {
-      if (this.formValido) {
-        this.inventarioServ.registerArticle(this.auth.auth.currentUser.email, form).then(
-          exito => {
-            Swal.fire('Registro Exitoso', 'Se ha agregado el articulo a la lista', 'success');
-            //Registra la fecha de vencimiento
-            this.inventarioServ.registerVencimientoArticle(this.auth.auth.currentUser.email, form).then(
-              exito => {
-                this.clearForm(form);
-              },
-              error => {
-                this.toas.warning('No se ha podido Registrar la fecha de Vencimiento', 'Fallo');
-                console.log(error);
-              }
-            )
 
+    if(this.validarArticleNotRepeat(form.value.codigo)){
+      if (form.valid) {
+        if (this.formValido) {
+          this.inventarioServ.registerArticle(this.auth.auth.currentUser.email, form).then(
+            exito => {
+              Swal.fire('Registro Exitoso', 'Se ha agregado el articulo a la lista', 'success');
+              //Registra la fecha de vencimient
+              this.inventarioServ.registerVencimientoArticle(this.auth.auth.currentUser.email, form).then(
+                exito => {
+                  this.clearForm(form);
+                },
+                error => {
+                  this.toas.warning('No se ha podido Registrar la fecha de Vencimiento', 'Fallo');
+                  console.log(error);
+                }
+              )
+  
+            },
+            error => {
+              this.toas.warning('No se ha podido Registrar', 'Fallo la Operacion');
+              console.log(error);
+            }
+          )
+        } else {
+          Swal.fire('Error en el Formulario', 'Verifique la informacion suministrada', 'error');
+        }
+  
+      }
+      else {
+        Swal.fire('Error en el Formulario', 'Verifique la informacion suministrada', 'error');
+  
+      }
+
+    }else{
+      Swal.fire('Disculpe','El codigo que intenta ingresar ya esta registrado','warning');
+    }
+  }
+  agregarInventario(form: NgForm) {
+    if (form.valid) {
+      if (this.formAddValid) {
+        this.inventarioServ.registerVencimientoArticle(this.auth.auth.currentUser.email, form).then(
+          exito => {
+            let codigo = form.value.codigo;
+            Swal.fire('Exito', 'Se ha registrado los nuevos productos al inventario', 'success');
+            this.fechasVencimientoAsociadas(codigo);
+            let data = {
+              cantidadDisponible: this.contar,
+              codigo:codigo  
+            }
+            this.inventarioServ.actualizarCantidadDisponible(this.auth.auth.currentUser.email, data);
+            this.articuloSelected.codigo = codigo;
           },
           error => {
-            this.toas.warning('No se ha podido Registrar', 'Fallo la Operacion');
+            Swal.fire('Error', 'No se ha podido agregar los articulos al inventario', 'error');
             console.log(error);
           }
         )
       } else {
-        Swal.fire('Error en el Formulario', 'Verifique la informacion suministrada', 'error');
+        Swal.fire('Error', 'Verifica los campos resaltados', 'error');
       }
-
-    }
-    else {
-      Swal.fire('Error en el Formulario', 'Verifique la informacion suministrada', 'error');
-
-    }
-
-  }
-  agregarInventario(form: NgForm) {
-    if(form.valid){
-      if(this.formAddValid){
-        this.inventarioServ.registerVencimientoArticle(this.auth.auth.currentUser.email, form).then(
-          exito => {
-            let codigo = form.value.codigo;
-            Swal.fire('Exito','Se ha registrado los nuevos productos al inventario','success');
-            this.fechasVencimientoAsociadas(codigo);
-            this.articuloSelected.codigo = codigo;
-          },
-          error => {
-            Swal.fire('Error','No se ha podido agregar los articulos al inventario','error');
-            console.log(error);
-          }
-        )
-      }else{
-        Swal.fire('Error','Verifica los campos resaltados','error');
-      }
-    }else{
-      Swal.fire('Error','Debes llenar los campos correctamente','error');
+    } else {
+      Swal.fire('Error', 'Debes llenar los campos correctamente', 'error');
     }
   }
   viewArticle(article: any) {
@@ -234,7 +222,7 @@ export class InventarioComponent implements OnInit {
     $('#btnFechas').show();
     $('#btnDelete').show();
     this.codigoEdit = false;
-    this.precioCompraEdit= false;
+    this.precioCompraEdit = false;
     this.precioVentaEdit = false;
     this.descuentoEdit = false;
     this.minEdit = false;
@@ -250,11 +238,11 @@ export class InventarioComponent implements OnInit {
   }
 
   deleteArticle(id: string) {
-    if(confirm('El Articulo sera Eliminado al igual que el Registro de Inventario Asociado')){
+    if (confirm('El Articulo sera Eliminado al igual que el Registro de Inventario Asociado')) {
       {
         this.inventarioServ.deleteArticle(this.auth.auth.currentUser.email, id).then(
           resultado => {
-            Swal.fire('Exito','El Articulo se ha eliminado correctamente','success');
+            Swal.fire('Exito', 'El Articulo se ha eliminado correctamente', 'success');
           }
           ,
           error => {
@@ -273,7 +261,7 @@ export class InventarioComponent implements OnInit {
             }
           )
         }
-    
+
       }
     }
   }
@@ -299,20 +287,47 @@ export class InventarioComponent implements OnInit {
 
   }
 
+  switchModeSearch() {
+    if (!this.searchMode) {
+      this.searchMode = true;
+    } else {
+      this.searchMode = false;
+    }
+  }
+
+
   searchArticle(word: string) {
-    if (word != "" && word != undefined) {
-      this.searchData = this.dataArticulo.filter(function (val) {
-        return (val.codigo.toLowerCase().startsWith(word.toLowerCase()));
-      });
-      this.searchState = true;
-      if (this.searchData.length > 0) {
-        this.resultState = true;
+    if (!this.searchMode) {
+      if (word != "" && word != undefined) {
+        this.searchData = this.dataArticulo.filter(function (val) {
+          return (val.codigo.toLowerCase().startsWith(word.toLowerCase()));
+        });
+        this.searchState = true;
+        if (this.searchData.length > 0) {
+          this.resultState = true;
+        } else {
+          this.resultState = false;
+        }
       } else {
+        this.searchState = false;
         this.resultState = false;
       }
     } else {
-      this.searchState = false;
-      this.resultState = false;
+      if (word != "" && word != undefined) {
+        this.searchData = this.dataArticulo.filter(function (val) {
+          return (val.descripcion.toLowerCase().startsWith(word.toLowerCase()));
+        });
+        this.searchState = true;
+        if (this.searchData.length > 0) {
+          this.resultState = true;
+        } else {
+          this.resultState = false;
+        }
+      } else {
+        this.searchState = false;
+        this.resultState = false;
+      }
+
     }
   }
 
@@ -347,43 +362,43 @@ export class InventarioComponent implements OnInit {
 
     }
     else {
-      if(form.valid){
-        if(this.formValidoEdit){
-              this.modificarGuardar = "Modificar";
-              this.cancelarCerrar = "Cerrar";
-              this.statusEdit = false;
-              $('#descripcion').attr('readonly', 'readonly');
-              $('#presentacion').attr('readonly', 'readonly');
-              $('#precio').attr('readonly', 'readonly');
-              $('#precioVenta').attr('readonly', 'readonly');
-              $('#descuento').attr('readonly', 'readonly');
-              $('#stockMinimo').attr('readonly', 'readonly');
-              $('#stockMaximo').attr('readonly', 'readonly');
-              $('#saveModif').attr("data-dismiss", "modal");
-              $('#cancelar').attr("data-dismiss", "modal");
-              $('#btnFechas').show();
-              $('#btnDelete').show();
-        
-              //llamando al metodo de actualizacion de los cambios
-              this.inventarioServ.editArticle(form, this.auth.auth.currentUser.email).then(
-                exito => {
-                  Swal.fire('Exito','Se ha modificado el Articulo','success')
-                },
-                fail => {
-                  Swal.fire('Error','No se ha podido modificar el Articulo','error');
-                  console.log(fail);
-        
-                }
-              )
-        
-            
-          
-        }else{
-          Swal.fire('Error','no has modificado ningun campo o has alterado alguno de manera incorrecta, el campo aparecera con un mensaje debajo','error');
-        }
-      }else{
+      if (form.valid) {
+        if (this.formValidoEdit) {
+          this.modificarGuardar = "Modificar";
+          this.cancelarCerrar = "Cerrar";
+          this.statusEdit = false;
+          $('#descripcion').attr('readonly', 'readonly');
+          $('#presentacion').attr('readonly', 'readonly');
+          $('#precio').attr('readonly', 'readonly');
+          $('#precioVenta').attr('readonly', 'readonly');
+          $('#descuento').attr('readonly', 'readonly');
+          $('#stockMinimo').attr('readonly', 'readonly');
+          $('#stockMaximo').attr('readonly', 'readonly');
+          $('#saveModif').attr("data-dismiss", "modal");
+          $('#cancelar').attr("data-dismiss", "modal");
+          $('#btnFechas').show();
+          $('#btnDelete').show();
 
-        Swal.fire('Error','Verifica los datos del formulario, puede que tengas un campo invalido','error');
+          //llamando al metodo de actualizacion de los cambios
+          this.inventarioServ.editArticle(form, this.auth.auth.currentUser.email).then(
+            exito => {
+              Swal.fire('Exito', 'Se ha modificado el Articulo', 'success')
+            },
+            fail => {
+              Swal.fire('Error', 'No se ha podido modificar el Articulo', 'error');
+              console.log(fail);
+
+            }
+          )
+
+
+
+        } else {
+          Swal.fire('Error', 'no has modificado ningun campo o has alterado alguno de manera incorrecta, el campo aparecera con un mensaje debajo', 'error');
+        }
+      } else {
+
+        Swal.fire('Error', 'Verifica los datos del formulario, puede que tengas un campo invalido', 'error');
 
       }
     }
@@ -406,7 +421,7 @@ export class InventarioComponent implements OnInit {
       this.loadArticle();
       this.loadVencimientoArticle();
       this.codigoEdit = false;
-      this.precioCompraEdit= false;
+      this.precioCompraEdit = false;
       this.precioVentaEdit = false;
       this.descuentoEdit = false;
       this.minEdit = false;
@@ -439,8 +454,15 @@ export class InventarioComponent implements OnInit {
       count += Number.parseInt(item.cantidad);
     }
     this.contar = count;
-
-
+    this.listVencimiento.sort((a, b) => {
+      if (a.fecha.seconds > b.fecha.seconds) {
+        return 1
+      }
+      if (a.fecha.seconds < b.fecha.seconds) {
+        return -1
+      }
+      return 0;
+    });
   }
 
   fechasVencimientoCercanas(codigo: string) {
@@ -465,7 +487,19 @@ export class InventarioComponent implements OnInit {
   }
 
   excentoIVA(e) {
-    this.articuloSelected.iva = e.target.checked;
+    this.articulo.iva = e.target.checked;
+  }
+
+  validarArticleNotRepeat(id: string): boolean {
+    var result = this.dataArticulo.filter(function (val) {
+      return val.id.toLowerCase().startsWith(id.toLowerCase());
+    });
+
+    if(result.length>0){
+      return false
+    }else{
+      return true;
+    }
   }
 
   validarForm(form: NgForm) {
@@ -586,22 +620,20 @@ export class InventarioComponent implements OnInit {
       this.formValidoEdit = false;
     }
   }
-  validarFormAdd(form:NgForm){
-    if(form.value.cantidad!=undefined){
-      if(this.validarNumero(form.value.cantidad)){
-        this.cantidadAdd=false;
-      }else{
-        this.cantidadAdd=true;
+  validarFormAdd(form: NgForm) {
+    if (form.value.cantidad != undefined) {
+      if (this.validarNumero(form.value.cantidad)) {
+        this.cantidadAdd = false;
+      } else {
+        this.cantidadAdd = true;
       }
+    }
+    if (!this.cantidadAdd) {
+      this.formAddValid = true;
+    } else {
+      this.formAddValid = false;
+    }
   }
-  if(!this.cantidadAdd){
-    this.formAddValid=true;
-  }else{
-    this.formAddValid=false;
-  }
-}
-
-
   validarNumero(valor: string) {
     if (!/^([0-9])*$/.test(valor)) {
       return false;
@@ -611,7 +643,7 @@ export class InventarioComponent implements OnInit {
 
   }
   validarString(valor: string) {
-    if (!/^([a-z])*$/.test(valor.toLowerCase())) {
+    if (!/^[A-Za-z\s]*$/.test(valor.toLowerCase())) {
       return false;
     }
     else {
@@ -619,19 +651,21 @@ export class InventarioComponent implements OnInit {
     }
 
 
+
+
   }
   swichAgregar() {
     if (!this.mostrarFormulario) {
       $('#formRegister').fadeIn("slow");
       $('#contenedorIcon').hide();
-      this.mostrarFormulario=true;
+      this.mostrarFormulario = true;
       $('#tableArticulos').removeClass('col-md-10');
 
     }
     else {
       $('#formRegister').hide();
       $('#contenedorIcon').fadeIn("slow");
-      this.mostrarFormulario=false;
+      this.mostrarFormulario = false;
       $('#tableArticulos').addClass('col-md-10');
 
     }
