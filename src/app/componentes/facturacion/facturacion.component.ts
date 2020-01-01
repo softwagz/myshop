@@ -24,7 +24,7 @@ export class FacturacionComponent implements OnInit {
 
   }
 
-  ivaBase:number=0.19;
+  ivaBase: number = 0.19;
   statusClienteDefault: boolean = false;
   facturaForm: FormGroup;
   estadoBusquedaArticulo: boolean = false;
@@ -424,7 +424,7 @@ export class FacturacionComponent implements OnInit {
 
 
     } else {
-      Swal.fire('Hola', 'Por favor agrega primero los articulos al carrito antes de calcular el descuento', 'info');
+      Swal.fire('Disculpe', 'Debe agregar los articulos primero', 'info');
       this.descuento = 0;
       this.facturaForm.get('descuentoF').setValue(0);
     }
@@ -447,15 +447,22 @@ export class FacturacionComponent implements OnInit {
   calcularRestaPorPagar() {
     this.abono = this.facturaForm.get('abonoF').value;
     if (this.turnTipoVenta) {
-      if (this.totalPagar > 0 && this.abono < this.totalPagar) {
-        this.porCobrar = this.totalPagar - this.abono;
-
-      } else {
-        this.abono = 0;
-        this.porCobrar = this.totalPagar - this.abono;
-        Swal.fire('Aviso', 'El abono debe ser menor que el total a pagar', 'info');
-        this.facturaForm.get('abonoF').setValue(0);
-
+      if(this.carrito.length>0){
+        if (this.totalPagar > 0 && this.abono < this.totalPagar) {
+          this.porCobrar = this.totalPagar - this.abono;
+        } 
+        else
+        {
+          this.abono = 0;
+          this.porCobrar = this.totalPagar - this.abono;
+          Swal.fire('Aviso', 'El abono debe ser menor que el total a pagar', 'info');
+          this.facturaForm.get('abonoF').setValue(0);
+  
+        }
+      }else{
+       Swal.fire('Disculpe','debe agregar los articulos primero');
+       this.abono=0;
+       this.facturaForm.get('abonoF').setValue(0);
       }
     }
   }
@@ -581,7 +588,7 @@ export class FacturacionComponent implements OnInit {
 
 
   }
-  
+
 
   //Variable para el fomrulario
   get identificacion() {
