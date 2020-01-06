@@ -29,7 +29,7 @@ export class ClientesComponent implements OnInit {
 
     }
   }
-  search: string;
+  search: any;
   searched: boolean = false;
   filterCliente: Cliente[] = null;
   statusfilter: boolean = false;
@@ -82,12 +82,9 @@ export class ClientesComponent implements OnInit {
   }
 
   registerClientes() {
-    if (this.formCliente.valid) {
+      if (this.formCliente.valid) {
       var id = this.formCliente.get('identificacion').value;
       if (this.validarUserNotRepeat(id)) {
-
-
-        if (this.validarUserNotRepeat(this.formCliente.get('identificacion').value)) {
           let datos = Object.assign({}, this.formCliente.value);
           delete datos.id;
           this.clientService.registerClient(datos, this.fireauth.auth.currentUser.email).then(
@@ -104,7 +101,7 @@ export class ClientesComponent implements OnInit {
             }
           );
 
-        }
+        
       }
       else {
         Swal.fire('Advertencia', 'El numero de Identificacion ya esta registrado', 'info');
@@ -112,8 +109,8 @@ export class ClientesComponent implements OnInit {
       }
     } else {
       Swal.fire('Error', 'Verifica los campos indicados', 'error');
-    }
-
+    } 
+ 
 
   }
 
@@ -148,7 +145,6 @@ export class ClientesComponent implements OnInit {
     this.formCliente.get('telefono').setValue(datos.telefono);
     this.formCliente.get('direccion').setValue(datos.direccion);
     this.formCliente.get('id').setValue(datos.id);
-    console.log(datos.id);
   }
 
   modificarCliente() {
@@ -238,11 +234,11 @@ export class ClientesComponent implements OnInit {
     }
   }
 
-  searchClient(key: string) {
+  searchClient(key: number) {
     if (!this.searchMode) {
       if (key) {
         this.filterCliente = this.dataClientes.filter(function (val) {
-          return val.identificacion.toLowerCase().startsWith(key.toLowerCase());
+          return val.identificacion.toString().startsWith(key.toString());
         });
         this.statusfilter = true;
         this.numberResult(this.filterCliente.length);
@@ -255,11 +251,11 @@ export class ClientesComponent implements OnInit {
     } else {
       if (key) {
         this.filterCliente = this.dataClientes.filter(function (val) {
-          if (val.nombre.toLowerCase().startsWith(key.toLowerCase())) {
-            return val.nombre.toLowerCase().startsWith(key.toLowerCase());
+          if (val.nombre.toLowerCase().startsWith(key.toString().toLowerCase())) {
+            return val.nombre.toLowerCase().startsWith(key.toString().toLowerCase());
           }
-          if (val.apellido.toLowerCase().startsWith(key.toLowerCase())) {
-            return val.apellido.toLowerCase().startsWith(key.toLowerCase())
+          if (val.apellido.toLowerCase().startsWith(key.toString().toLowerCase())) {
+            return val.apellido.toLowerCase().startsWith(key.toString().toLowerCase())
           }
         });
         this.statusfilter = true;
@@ -273,6 +269,9 @@ export class ClientesComponent implements OnInit {
 
     }
 
+  }
+  clearSear(){
+    this.searchClient(null);
   }
   switchModeSearch() {
     if (!this.searchMode) {
@@ -285,18 +284,19 @@ export class ClientesComponent implements OnInit {
     }
   }
 
-  validarUserNotRepeat(id: string): boolean {
-    var ide = this.formCliente.get('identificacion').value;
+  validarUserNotRepeat(id: number): boolean {
+    var resultado:any[];
 
-    var result = this.dataClientes.filter(function (val) {
-      return val.identificacion.toLowerCase().startsWith(ide.toLowerCase());
+    resultado = this.dataClientes.filter(function (val) {
+      return val.identificacion.toString().startsWith(id.toString());
     });
-
-    if(result.length>0){
-      return false
-    }else{
+    if(resultado.length>0){
+      return false;
+    }
+    else{
       return true;
     }
+
   }
 
   get nombre() {

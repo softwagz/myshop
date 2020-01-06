@@ -15,6 +15,7 @@ import Popper from 'popper.js';
   styleUrls: ['./inventario.component.css']
 })
 export class InventarioComponent implements OnInit {
+  textTipoSearch:string="Buscar Codigo";
 
   constructor(private inventarioServ: InventarioService, private toas: ToastrService,
     private auth: AngularFireAuth) {
@@ -290,8 +291,11 @@ export class InventarioComponent implements OnInit {
   switchModeSearch() {
     if (!this.searchMode) {
       this.searchMode = true;
+      this.textTipoSearch="Buscar Nombre";
+
     } else {
       this.searchMode = false;
+      this.textTipoSearch="Buscar Codigo";
     }
   }
 

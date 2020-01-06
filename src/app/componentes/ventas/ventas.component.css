@@ -23,10 +23,68 @@ background-color: rgb(37, 0, 31);
 .table-scroll{
     position: relative;
     height:600px;
-    overflow: auto
+    overflow: auto;
 }
 
 .custom-scroll{
     display: block;
+}
+.scroll{
+    position: relative;
+    height:600px;
+    width: 1280px;
+    overflow: auto;
+    display: block;
+
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+    /* deskopt */
+}
+
+@media (max-width: 767px) {
+    /* moviles horizontales y tables */
+    #menu .items-menu ul li {
+        font-size: medium;
+    }
+
+    #menu {
+        padding: 0;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+    #contenedorGrafica{
+        overflow-x: scroll;
+        overflow-y: scroll;
+    }
+
+    #contenedorGrafica .flex{
+        width: 700px;
+        height: 320px;
+    }
+
+}
+
+@media(max-width:480px) {
+    /* moviles */
+    #menu .items-menu ul li {
+        font-size: 13px;
+    }
+
+    #grafica{
+        font-size: 7px;
+    }
+    #contenedorGrafica{
+        overflow-x: scroll;
+        overflow-y: scroll;
+    }
+
+    #contenedorGrafica .flex{
+        width: 700px;
+        height: 280px;
+    }
+    .tableFactura {
+        font-size: 10px;
+    }
+    
 
 }

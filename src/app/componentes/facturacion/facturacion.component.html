@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row menu" id="menu">
         <div class="col-lg-5 items-menu">
-            <ul style="list-style: none; display: inline-flex;">
+            <ul>
                 <li>
                     <a class="badge" href="#" routerLink="/principal">
                         <i class="fas fa-home fa-2x"></i><br />
@@ -24,7 +24,7 @@
                 <li>
                     <a class="badge" href="#" routerLink="/facturas">
                         <i class="far fa-clipboard fa-2x"></i> <br />
-                        <span class="badge badge-dark">Facturas</span>
+                        <span class="badge badge-dark">Facturar</span>
                     </a>
                 </li>
                 <li>
@@ -52,32 +52,33 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-5 offset-7">
-            <div class="form-group row" style="text-align: right;">
+        <div class="col-md-5 montosDia">
+            <div class="form-group row">
                 <label for="totalVendido" class="col-form-label-sm col-sm-4">Total Vendido del Dia</label>
                 <div class="col-md-4">
                     <input
                         style="border: 3px solid blue ;background-color: rgb(255, 255, 255);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
-                        id="totalVendido" readonly type="text" class="form-control form-control-sm" value="{{totalVendido|currency}}">
+                        id="totalVendido" readonly type="text" class="form-control form-control-sm"
+                        value="{{totalVendido|currency}}">
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-5 offset-7">
-            <div class="form-group row" style="text-align: right;">
-                <label for="totalVendido" class="col-form-label-sm col-sm-4">Total Ganancia del Dia</label>
+        <div class="col-md-5 montosDia">
+            <div class="form-group row">
+                <label for="totalGananciaDia" class="col-form-label-sm col-sm-4">Total Ganancia del Dia</label>
                 <div class="col-md-4">
                     <input
                         style="border: 3px solid blue ;background-color: rgb(255, 255, 255);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
-                        id="totalVendido" readonly type="text" class="form-control form-control-sm" value="{{gananciaDelDia|currency}}">
+                        id="totalGananciaDia" readonly type="text" class="form-control form-control-sm"
+                        value="{{gananciaDelDia|currency}}">
                 </div>
             </div>
         </div>
     </div>
     <div id="datosFactura">
-        <div class="row">
-            <div class="col-6">
+        <h5>Cliente y Tipo de Venta</h5>
+        <div class="row" style="margin-top: 35px;" >
+            <div class="col-6 textSize">
                 <div class="form-check">
                     <input class="form-check-input" (change)="tipoCliente()" type="radio" name="exampleRadios"
                         id="selectClienteNatural" value="1" checked>
@@ -93,96 +94,77 @@
                     </label>
                 </div>
             </div>
-            <div class="col-6">
-                <div class="row">
-                    <div class="col-4">
-                        <div style="margin-left: auto;" class="custom-control custom-switch">
-                            <div class="form-check">
-                                <input class="form-check-input" (change)="tipoVenta()" type="radio" name="radioVenta"
-                                    id="selectVentaContado" value="1" checked>
-                                <label class="form-check-label" for="selectVentaContado">
-                                    Venta a Contado
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" (change)="tipoVenta()" type="radio" name="radioVenta"
-                                    id="selectVentaCredito" value="2">
-                                <label class="form-check-label" for="selectVentaCredito">
-                                    Venta a Credito
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <button type="button" (click)="limpiarFormulario()" class="btn btn-block btn-primary">Limpiar
-                            Factura</button>
-                    </div>
-                    <div class="col-3">
-                        <button type="submit" (click)="saveForm()" class="btn btn-block btn-success">Realizar
-                            Venta</button>
-                    </div>
-
-
-
+            <div class="col-6 textSize">
+                <div class="form-check">
+                    <input class="form-check-input" (change)="tipoVenta()" type="radio" name="radioVenta"
+                        id="selectVentaContado" value="1" checked>
+                    <label class="form-check-label" for="selectVentaContado">
+                        Venta Contado
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" (change)="tipoVenta()" type="radio" name="radioVenta"
+                        id="selectVentaCredito" value="2">
+                    <label class="form-check-label" for="selectVentaCredito">
+                        Venta a Credito
+                    </label>
                 </div>
             </div>
         </div>
-
-        <div class="row" style="bottom:10rem;">
+        <div class="row" style="margin-top: 35px;bottom:10rem;" >
             <div class="col-12">
                 <form [formGroup]='facturaForm' (ngSubmit)="saveForm()">
                     <!-- Cliente y tipo de Venta -->
-
                     <div class="row">
-                        <div class=" offset-2 col-md-3">
-                            <div class="form-group row">
-                                <label for="numeroFactura" class="col-form-label col-sm-5">
-                                    Nro Factura
-                                </label>
-                                <div class="col-sm-7">
-                                    <input id="numeroFactura" formControlName="nroFactura" type="number"
-                                        class="form-control">
-                                    <div class="alert alert-danger"
-                                        *ngIf="nroFactura.invalid && (nroFactura.dirty || nroFactura.touched)">
-                                        <div *ngIf="nroFactura.errors.required">
-                                            Debes Llenar este campo
-                                        </div>
-                                        <div *ngIf="nroFactura.errors.minlength">
-                                            Escribe al menos 5 caracteres
-                                        </div>
-                                        <div
-                                            *ngIf="(nroFactura.dirty || nroFactura.touched) && nroFactura.invalid && nroFactura.errors.pattern">
-                                            Ingresa solo Numeros
+                        <!-- tipo de Cliente -->
+                        <div class="col-md-6 datosCliente"  >
+                            <div class="row">
+                                <!-- numero De Factura -->
+                                <div class="col-md-8">
+                                    <div class="form-group row">
+                                        <label for="numeroFactura" class="col-form-label-sm col-sm-5">
+                                            Nro Factura
+                                        </label>
+                                        <div class="col-sm-7">
+                                            <input id="numeroFactura" formControlName="nroFactura" type="number"
+                                                class="form-control form-control-sm">
+                                            <div class="alert alert-danger"
+                                                *ngIf="nroFactura.invalid && (nroFactura.dirty || nroFactura.touched)">
+                                                <div *ngIf="nroFactura.errors.required">
+                                                    Debes Llenar este campo
+                                                </div>
+                                                <div *ngIf="nroFactura.errors.minlength">
+                                                    Escribe al menos 5 caracteres
+                                                </div>
+                                                <div
+                                                    *ngIf="(nroFactura.dirty || nroFactura.touched) && nroFactura.invalid && nroFactura.errors.pattern">
+                                                    Ingresa solo Numeros
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!-- tipo de Cliente -->
-                        <div class="col-md-6">
                             <div *ngIf="!turnTipoCliente; else otherForm">
-                                <h4>Cliente Natural</h4>
                                 <div class="form-check">
                                     <input class="form-check-input" (change)="clienteDefault($event)" type="checkbox"
                                         id="selecClientDefault" value="1">
                                     <label class="form-check-label" for="selecClientDefault">
-                                        Cliente Default
+                                        Llenar por Defecto
                                     </label>
                                 </div>
                                 <div class="row">
                                     <div class=" offset-1 col-md-11">
                                         <div class=" form-group row">
-                                            <div class="col-3">
-                                                <select class="form-control" name="" id="">
+                                            <div class="col-4">
+                                                <select class="form-control form-control-sm" name="" id="">
                                                     <option value="">C</option>
                                                     <option value="">E</option>
                                                 </select>
                                             </div>
-                                            <div class="col-9">
-                                                <input placeholder="Nro Identificacion" type="number" class="form-control"
-                                                    formControlName="identificacion">
+                                            <div class="col-8">
+                                                <input placeholder="Nro Identificacion" type="number"
+                                                    class="form-control form-control-sm" formControlName="identificacion">
                                                 <div class="alert alert-danger"
                                                     *ngIf="identificacion.invalid && (identificacion.dirty || identificacion.touched)">
                                                     <div *ngIf="identificacion.errors.required">
@@ -201,7 +183,7 @@
                                         <div class="form-group row">
                                             <div class="col-6">
                                                 <input placeholder="Nombre" type="text" formControlName="nombre"
-                                                    class="form-control">
+                                                    class="form-control form-control-sm">
                                                 <div class="alert alert-danger"
                                                     *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
                                                     <div *ngIf="nombre.errors.required">
@@ -218,7 +200,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <input placeholder="Apellido" type="text" formControlName="apellido"
-                                                    class="form-control">
+                                                    class="form-control form-control-sm">
                                                 <div class="alert alert-danger"
                                                     *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
                                                     <div *ngIf="apellido.errors.required">
@@ -236,9 +218,9 @@
 
                                         </div>
                                         <div class="form-group row">
-                                            <div class="col-4">
+                                            <div class="col-5">
                                                 <input placeholder="Telefono" type="number" formControlName="telefono"
-                                                    class="form-control">
+                                                    class="form-control form-control-sm">
                                                 <div class="alert alert-danger"
                                                     *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
                                                     <div *ngIf="telefono.errors.required">
@@ -253,9 +235,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-8">
+                                            <div class="col-7">
                                                 <input placeholder="Direccion" type="text" formControlName="direccion"
-                                                    class="form-control">
+                                                    class="form-control form-control-sm">
                                                 <div class="alert alert-danger"
                                                     *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)">
                                                     <div *ngIf="direccion.errors.required">
@@ -275,7 +257,6 @@
                             </div>
 
                             <ng-template #otherForm>
-                                <h4>Cliente Juridico</h4>
                                 <div class="row">
                                     <div class=" offset-1 col-md-11">
                                         <div class=" form-group row">
@@ -285,7 +266,7 @@
                                             <div class="col-7">
                                                 <input id="NIT" formControlName="identificacion"
                                                     placeholder="Nro Identificacion Tributaria" type="number"
-                                                    class="form-control">
+                                                    class="form-control form-control-sm">
                                                 <div class="alert alert-danger"
                                                     *ngIf="identificacion.invalid && (identificacion.dirty || identificacion.touched)">
                                                     <div *ngIf="identificacion.errors.required">
@@ -302,9 +283,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <div class="col-8">
+                                            <div class="col-7">
                                                 <input placeholder="Nombre" type="text" formControlName="nombre"
-                                                    class="form-control">
+                                                    class="form-control form-control-sm">
                                                 <div class="alert alert-danger"
                                                     *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
                                                     <div *ngIf="nombre.errors.required">
@@ -319,9 +300,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-4">
+                                            <div class="col-5">
                                                 <input formControlName="telefono" placeholder="Telefono" type="number"
-                                                    class="form-control">
+                                                    class="form-control form-control-sm">
                                                 <div class="alert alert-danger"
                                                     *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
                                                     <div *ngIf="telefono.errors.required">
@@ -341,7 +322,7 @@
 
                                             <div class="col-12">
                                                 <input formControlName="direccion" placeholder="Direccion" type="text"
-                                                    class="form-control">
+                                                    class="form-control form-control-sm">
                                                 <div class="alert alert-danger"
                                                     *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)">
                                                     <div *ngIf="direccion.errors.required">
@@ -362,11 +343,10 @@
                         </div>
 
                         <!-- tipo de Venta -->
-                        <div class="col-md-6">
+                        <div class="col-md-6 montos">
                             <div class="row">
                                 <!-- Venta a Contado -->
                                 <div class="col-md-12" *ngIf="!turnTipoVenta">
-                                    <h4>Venta Contado</h4>
                                     <div class="form-group row">
                                         <label for="subtotal"
                                             class=" offset-3 col-sm-5 col-form-label form-control-sm">Subtotal</label>
@@ -415,7 +395,6 @@
                                 </div>
                                 <!-- Venta a Credito -->
                                 <div class="col-12" *ngIf="turnTipoVenta">
-                                    <h4>Venta Credito</h4>
                                     <div class="form-group row">
                                         <label for="subtotal"
                                             class="offset-3 col-sm-5 col-form-label form-control-sm">Subtotal</label>
@@ -496,86 +475,73 @@
                 </form>
             </div>
         </div>
+        <div class="row" style="margin-top: 35px;">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-3 mb-1">
+                <button type="button" (click)="limpiarFormulario()" class="btn btn-block btn-primary">Limpiar
+                    Factura</button>
+            </div>
+            <div class="col-md-3 mb-1">
+                <button type="submit" (click)="saveForm()" class="btn btn-block btn-success">Realizar
+                    Venta</button>
+            </div>
+        </div>
     </div>
 
     <!-- Tabla de carrito y lista de articulos -->
-    <div class="row" style="margin-top: 35px;">
-        <div class="col col-sm-6">
-            <!-- aca ira los articulos del carrito -->
-            <h4>Articulos de la Compra</h4>
+    <div class="row">
 
-            <button style="margin-left: auto;" (click)="limpiarCarrito()" class="btn btn-primary">
-                Limpiar Carrito
-            </button>
-            <table class="table table-light table-striped table-hover text-center">
-                <thead>
-                    <th>codigo</th>
-                    <th>Descripcion</th>
-                    <th>Presentacion</th>
-                    <th>Precio ($)</th>
-                    <th>Cantidad</th>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let items of carrito">
-                        <td>{{items.codigo}}</td>
-                        <td>{{items.descripcion}}</td>
-                        <td>{{items.presentacion}}</td>
-                        <td>{{items.precioVenta}}</td>
-                        <td> {{items.cantidadCompra}}</td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
-        <div class="col col-sm-6">
+        <div class="col col-sm-6" style="border-top: solid gray 2px;">
             <!-- aca ira la busqueda de los articulos -->
-            <nav class="navbar navbar-light bg-light">
-                <span class="nav-item"><strong>Lista de Productos</strong></span>
+            <h4>Seleccionar Articulos</h4>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <a class="navbar-brand" href="#">Busqueda</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <form #formularioBusqueda="ngForm" autocomplete="off" class="form-inline ml-auto">
+                        <input name="search" (click)="clearSearch()" (keyup)="searchArticle(search)"
+                            [(ngModel)]="search" class="form-control mr-sm-2" type="search" [placeholder]="tipoBusqueda"
+                            aria-label="Search">
+                        <div style="margin-left: auto;" class="custom-control custom-switch">
+                            <input (click)="switchModeSearch()" type="checkbox" class="custom-control-input"
+                                id="switchModeSear">
+                            <label class="custom-control-label" for="switchModeSear">Buscar por Nombre</label>
+                        </div>
+                    </form>
+                </div>
 
-                <form #formularioBusqueda="ngForm" class="form-inline ml-auto">
-                    <input name="search" (click)="clearSearch()" (keyup)="searchArticle(search)" [(ngModel)]="search"
-                        class="form-control mr-sm-2" type="search" placeholder="codigo" aria-label="Search">
-                    <div style="margin-left: auto;" class="custom-control custom-switch">
-                        <input (click)="switchModeSearch()" type="checkbox" class="custom-control-input"
-                            id="switchModeSear">
-                        <label class="custom-control-label" for="switchModeSear">Buscar por Nombre</label>
-                    </div>
-                </form>
+
             </nav>
 
             <div class="table-scroll custom-scroll">
-                <table class="table table-light table-striped table-hover text-center">
+                <table class="table textTable table-responsive-lg table-light table-striped table-hover text-center">
                     <thead>
-                        <th>codigo</th>
                         <th>Descripcion</th>
                         <th>Presentacion</th>
+                        <th>codigo</th>
                         <th>Precio ($)</th>
                     </thead>
                     <tbody *ngIf="!searchState">
                         <tr *ngFor="let datos of dataArticulo" (click)="agregarAlCarrito(datos)">
-                            <td>{{datos.codigo}}
-                            </td>
-                            <td>
-                                {{datos.descripcion}}</td>
-                            <td>
-                                {{datos.presentacion}}</td>
-                            <td>
-                                {{datos.precioVenta|currency}}
-                            </td>
+                            <td>{{datos.descripcion}}</td>
+                            <td>{{datos.presentacion}}</td>
+                            <td>{{datos.codigo}}</td>
+                            <td>{{datos.precioVenta|currency}}</td>
 
                         </tr>
 
                     </tbody>
-                    <tbody *ngIf="searchState">
+                    <tbody *ngIf="searchState" >
                         <tr *ngFor="let datos of searchData" (click)="agregarAlCarrito(datos)">
-                            <td>{{datos.codigo}}
-                            </td>
-                            <td>
-                                {{datos.descripcion}}</td>
-                            <td>
-                                {{datos.presentacion}}</td>
-                            <td>
-                                {{datos.precio|currency}}</td>
+                            <td>{{datos.descripcion}}</td>
+                            <td>{{datos.presentacion}}</td>
+                            <td>{{datos.codigo}}</td>
+                            <td>{{datos.precio|currency}}</td>
 
                         </tr>
                         <tr *ngIf="!resultState">
@@ -587,6 +553,37 @@
                 </table>
             </div>
 
+        </div>
+        <div class="col col-sm-6">
+            <!-- aca ira los articulos del carrito -->
+            <h4>Articulos de la Compra</h4>
+
+            <button style="margin-left: auto;" (click)="limpiarCarrito()" class="btn btn-primary">
+                Limpiar Carrito
+            </button>
+            <div class="table-scroll custom-scroll">
+
+            <table class="table textTable table-responsive-lg table-light table-striped table-hover text-center">
+                <thead>
+                    <th>Descripcion</th>
+                    <th>N°</th>
+                    <th>Presentacion</th>
+                    <th>codigo</th>
+                    <th>Precio ($)</th>
+
+
+                </thead>
+                <tbody>
+                    <tr *ngFor="let items of carrito">
+                        <td>{{items.descripcion}}</td>
+                        <td>{{items.cantidadCompra}}</td>
+                        <td>{{items.presentacion}}</td>
+                        <td>{{items.codigo}}</td>
+                        <td>{{items.precioVenta}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
         </div>
     </div>
 

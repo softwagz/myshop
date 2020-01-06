@@ -1,26 +1,85 @@
-#bgLoging{
-/*     background: url('/assets/fondopared.jpg');
- */    -webkit-background-size: cover;
+#bgLoging {
+    background: url('/assets/bgLogin.jpg');
+     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    height: 1400px;
+}
+.textMyShop {
+    text-align: center;
+    padding: 15px 10px;
+    color: rgb(214, 202, 202);
+}
+.textInfo{
+    text-indent: 25px;
+    text-align: justify;
 }
 
-.card{
+.card {
     margin-top: 12%;
+    margin-bottom: 12%;
     background-color: rgb(88, 87, 87);
     font-family: 'Times New Roman', Times, serif;
-    height: 100%;
-    width: 80%;
+    height: 85%;
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
     border-radius: 12px;
+
 }
 
-.card-img-top{
+.card-img-top {
     height: 200px;
     width: 210px;
     margin-left: auto;
     margin-right: auto;
 }
+@media (min-width: 768px) and (max-width: 1199px) {
+    /* deskopt */
+}
 
+@media (max-width: 767px) { 
+    /* moviles horizontales y tables */
+    .textMyShop {
+        text-align: center;
+        padding: 15px 10px;
+        color: rgb(214, 202, 202);
+    }
+    .card {
+        height: 83%;
+        width: 50%;
+    }
+    .card-img-top {
+        height: 140px;
+        width: 130px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .inputLogin {
+        font-size: smaller;
+    }
+
+}
+
+@media(max-width:480px) {
+    /* moviles */
+    .textMyShop {
+        text-align: center;
+        padding: 15px 10px;
+        color: rgb(214, 202, 202);
+    }
+    .card {
+        height: 90%;
+        width: 90%;
+    }
+    .card-img-top {
+        height: 140px;
+        width: 130px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .inputLogin {
+        font-size: smaller;
+    }
+}

@@ -1,49 +1,49 @@
 ﻿<div *ngIf="!isLoged" class="container-fluid" id="bgLoging">
     <div class="row">
-
-        <div class="col-lg-4" style="text-align: center;padding: 15px 10px; color: rgb(78, 78, 78);"> 
+        <div class="col-md-4 textMyShop"> 
             <section style="font-size: smaller;padding: 22px;">
                 <h3  style="margin-top: 10px;" >My Shop <i class="fab fa-accusoft fa-3x"></i></h3>
-                <p style="text-align: justify;"> Es un sistema practico de inventario y facturacion para pequeñas tiendas y bodegas que deseen
+                <p class="textInfo"> Es un sistema practico de inventario y facturacion para pequeñas tiendas y bodegas que deseen
                     manejar las ventas y llevar el control de las cantidades disponibles, fechas de vencimiento, asi
                     como las cuentas por cobrar y las ganacias obtenidas en periodos de tiempos concretos</p>
-                <p style="text-align: justify;"> El Objetivo Principal es ayudar a los Dueños a ahorrar tiempo al final del dia para cerrar las
+                <p class="textInfo" > El Objetivo Principal es ayudar a los Dueños a ahorrar tiempo al final del dia para cerrar las
                     operaciones efectuadas asi como facilitar la toma de desiciones con respecto a las ventas y las
                     ganancias obtenidas, por otra parte proveerles un Software que les permita actualizarse e integrarse
                     a las nuevas tecnologias que las tiendas modernas y consolidadas manejan, con el Objetivo de
                     controlar y verificar la entrada y salida monetaria de la misma</p>
             </section>
         </div>
-        <div class="col-lg-4">
+        <div class="col-md-4">
             <div class="card">
                 <img src="/assets/usuarios.png" class="card-img-top" alt="loginUser">
                 <div class="card-body">
                     <form #formLogin="ngForm" (submit)="loginUser(formLogin)">
                         <div class="form-group">
                             <label for="email"> <i class="fas fa-at"></i> Correo </label>
-                            <input [(ngModel)]="email" class="form-control" type="email" name="email"
+                            <input [(ngModel)]="email" class="form-control inputLogin" type="email" name="email"
                                 placeholder="example@gmail.com" required>
                         </div>
                         <div class="form-group">
                             <label for="password"> <i class="fas fa-key"></i> Contraseña </label>
-                            <input [(ngModel)]="password" class="form-control" type="password" name="password"
+                            <input [(ngModel)]="password" class="form-control inputLogin" type="password" name="password"
                                 placeholder="Password" required>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-block btn-success">Acceder</button>
                         </div>
                     </form>
+                    <p style="font-size: smaller;">
+                        <strong>Usuario:</strong> userDefault@gmail.com
+                    </p>
+                    <p style="    font-size: smaller;">
+                        <strong>Password:</strong> 123123
+                    </p>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4" style=" text-align: justify; color: rgb(78, 78, 78);">
-            <p style="margin-top: 100px;">
-                <strong>Usuario:</strong> userDefault@gmail.com
-            </p>
-            <p>
-                <strong>Password:</strong> 123123
-            </p>
-            <div style="margin-top: 270px;">
+        <div class="col-md-4 textMyShop">
+
+            <div style="margin-top: 100px;">
                 <section>  
                     <p>My Shop Esta diseñada por Softw<i class="fab fa-accusoft"></i>gz, un Desarrolador Full-Stack, puedes conocer mas de él es su sitio web
                     </p>

@@ -15,3 +15,33 @@ background-color: rgb(37, 0, 31);
 #menu ul{
     border-radius: 5px;
 }
+
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    /* deskopt */
+}
+
+@media (max-width: 767px) {
+    /* moviles horizontales y tables */
+
+
+    #menu .items-menu ul li {
+        font-size: medium;
+    }
+
+    #menu {
+        padding: 0;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+}
+
+@media(max-width:480px) {
+    /* moviles */
+
+    #menu .items-menu ul li {
+        font-size: 13px;
+    }
+
+
+}

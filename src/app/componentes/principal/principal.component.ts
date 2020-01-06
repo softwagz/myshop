@@ -12,7 +12,9 @@ export class PrincipalComponent implements OnInit {
   constructor(private auth:AngularFireAuth, private toas:ToastrService) { }
 
   ngOnInit() {
+
   }
+
 
   singOut(){
     this.auth.auth.signOut();

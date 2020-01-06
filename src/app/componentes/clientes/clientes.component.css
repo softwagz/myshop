@@ -1,40 +1,50 @@
-#principal{
-/*     background: url('/assets/fondopared.jpg');
+#principal {
+    /*     background: url('/assets/fondopared.jpg');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover; */
-
 }
 
-.card .card-body{
+.card .card-body {
     background: rgba(170, 170, 170, 0.513);
-    
     margin: 5%;
     border-radius: 10px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
-.card-img-top{
+
+.card-img-top {
     margin-left: auto;
     margin-right: auto;
     width: 200px;
     padding: 2%;
 }
 
-#home{
+.tableUsers {
+    width: 100%;
+}
+
+#home {
     text-align: center;
 }
-#formularioRegistro{
+
+#formularioRegistro {
     margin: 5%;
     background: rgb(246, 246, 246);
-/*     background: url('/assets/mesa2.jpg');
- -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover; */
 
 }
-#menu{
+.table-scroll{
+    position: relative;
+    height:600px;
+    overflow: auto
+}
+
+.custom-scroll{
+    display: block;
+
+}
+
+#menu {
     margin-top: 2px;
     padding-top: 6rem;
     background-image: url('/assets/whitebg.jpg');
@@ -43,10 +53,59 @@
     background-size: cover;
 }
 
-#menu .items-menu ul{
-background-color: rgb(37, 0, 31);
+#menu .items-menu ul {
+    background-color: rgb(37, 0, 31);
+    list-style: none;
+    display: inline-flex;
+    border-radius: 5px;
 }
 
-#menu ul{
-    border-radius: 5px;
+@media (min-width: 768px) and (max-width: 1199px) {
+    /* deskopt */
+}
+
+@media (max-width: 767px) {
+    /* moviles horizontales y tables */
+    #menu .items-menu ul li {
+        font-size: medium;
+    }
+    #formularioRegistro {
+        margin: 10px 0;
+        
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #menu {
+        padding: 0;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+
+}
+
+@media(max-width:480px) {
+    /* moviles */
+    #menu .items-menu ul li {
+        font-size: 13px;
+    }
+    
+
+    #formularioRegistro {
+        margin: 10px 0;
+        
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .card-img-top {
+        margin-left: auto;
+        margin-right: auto;
+        width: 120px;
+        padding: 2%;
+    }
+
+    .textTable{
+        font-size: 10px;
+    }
 }

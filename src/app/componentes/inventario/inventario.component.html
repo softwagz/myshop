@@ -24,7 +24,7 @@
                 <li>
                     <a class="badge" href="#" routerLink="/facturas">
                         <i class="far fa-clipboard fa-2x"></i> <br />
-                        <span class="badge badge-dark">Facturas</span>
+                        <span class="badge badge-dark">Facturar</span>
                     </a>
                 </li>
                 <li>
@@ -52,7 +52,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2" style="text-align: center;" id="contenedorIcon">
+        <div class="col-md-2" id="contenedorIcon">
             <span class="badge badge-warning" (click)="swichAgregar()" id="iconAgregar">
                 <i class="fas fa-eye fa-4x"></i> <br> Registrar Articulo
             </span>
@@ -176,21 +176,28 @@
 
         </div>
         <div class="col-md-8 col-md-10" id="tableArticulos">
-            <nav class="navbar navbar-light bg-light">
-                <span class="nav-item"><strong>Lista de Productos</strong></span>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Busqueda</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <span class="nav-item"><strong>Lista de Productos</strong></span>
                 <div style="margin-left: auto;" class="custom-control custom-switch">
                     <input (click)="switchModeSearch()" type="checkbox" class="custom-control-input" id="searchMode">
                     <label class="custom-control-label" for="searchMode">Buscar por nombre</label>
                 </div>
                 <form #formularioBusqueda="ngForm" autocomplete="off" class="form-inline ml-auto">
                     <input name="search" (click)="clearSearch()" (keyup)="searchArticle(search)" [(ngModel)]="search"
-                        class="form-control mr-sm-2" type="search" placeholder="codigo" aria-label="Search">
+                        class="form-control mr-sm-2" type="search" [placeholder]="textTipoSearch" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
                 </form>
+                </div>
             </nav>
 
             <div class="table-scroll custom-scroll">
-                <table class="table table-light table-striped table-hover text-center">
+                <table class="tableInventario table table-responsive-sm  table-light table-striped table-hover text-center">
                     <thead>
                         <th>codigo</th>
                         <th>Descripcion</th>

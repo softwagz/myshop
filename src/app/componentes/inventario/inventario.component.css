@@ -1,14 +1,15 @@
-#formularioArticulos{
+#formularioArticulos {
     margin: auto auto;
     padding: 3%;
-    background: url('/assets/mesa2.jpg');
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    width: 80%;
+    background-color: rgb(131, 131, 131);
 }
 
-#menu{
+ #contenedorIcon{
+    text-align: center;
+}
+
+#menu {
     margin-top: 2px;
     padding-top: 6rem;
     background-image: url('/assets/whitebg.jpg');
@@ -17,49 +18,110 @@
     background-size: cover;
 }
 
-#menu .items-menu ul{
-background-color: rgb(37, 0, 31);
+#menu .items-menu ul {
+    background-color: rgb(37, 0, 31);
 }
 
-.card-body{
+.card-body {
     background: rgba(255, 255, 255, 0.513);
     color: black;
     border-radius: 10px;
     margin: 2%;
 }
-#formularioArticulos{
+
+#formularioArticulos {
     border-radius: 10px;
 }
 
-#iconAgregar{
+#iconAgregar {
     border-radius: 10%;
-    padding:5%;
+    padding: 5%;
     cursor: pointer;
     color: black;
 }
 
-#iconAgregar:hover{
+#iconAgregar:hover {
     color: rgb(47, 47, 47);
 }
 
-#ocultarBoton{
+#ocultarBoton {
     cursor: pointer;
     color: black;
 }
 
-#ocultarBoton:hover{
+#ocultarBoton:hover {
     color: rgb(46, 46, 46);
-
-
 }
 
-.table-scroll{
+.table-scroll {
     position: relative;
     height: 90%;
     overflow: auto
 }
 
-.custom-scroll{
+.custom-scroll {
     display: block;
+}
 
+@media (min-width: 768px) and (max-width: 1199px) {
+    /* deskopt */
+}
+
+@media (max-width: 767px) {
+    /* moviles horizontales y tables */
+    #iconAgregar{
+        font-size: 12px;
+        margin-left: 7px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    #contenedorIcon{
+        text-align: left;
+    }
+    #menu .items-menu ul li {
+        font-size: medium;
+    }
+    #formularioArticulos {
+        margin: 10px 0;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #menu {
+        padding: 0;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+}
+
+@media(max-width:480px) {
+    /* moviles */
+    #iconAgregar{
+        font-size: 8px;
+        margin-left: 7px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    #contenedorIcon{
+        text-align: left;
+    }
+    #menu .items-menu ul li {
+        font-size: 13px;
+    }
+    #formularioArticulos {
+        margin: 10px 0;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+    .card-img-top {
+        margin-left: auto;
+        margin-right: auto;
+        width: 120px;
+        padding: 2%;
+    }
+    .tableInventario {
+        font-size: 10px;
+    }
 }

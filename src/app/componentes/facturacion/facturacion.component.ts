@@ -66,6 +66,7 @@ export class FacturacionComponent implements OnInit {
   totalVendido: number = 0;
   validarNumero: any = /^\d*$/;
   validarLetras: any = /^[A-Za-z\s]*$/;
+  tipoBusqueda:string = "Codigo";
 
   prueba() {
 
@@ -319,9 +320,14 @@ export class FacturacionComponent implements OnInit {
       if (index === -1) {
         articulo.cantidadCompra = 1;
         this.carrito.push(articulo);
+        this.toas.toastrConfig.timeOut=490;
+        this.toas.success('Agregado','')
       } else {
         if (this.contar > articulo.cantidadCompra) {
           this.carrito[index].cantidadCompra += 1;
+          this.toas.toastrConfig.timeOut=490;
+          this.toas.success('Agregado','');
+
         } else {
           alert('Articulo Agotado, cantidad maxima ' + this.contar.toString());
         }
@@ -521,8 +527,10 @@ export class FacturacionComponent implements OnInit {
   switchModeSearch() {
     if (!this.searchMode) {
       this.searchMode = true;
+      this.tipoBusqueda='Nombre'
     } else {
       this.searchMode = false;
+      this.tipoBusqueda = 'Codigo';
     }
   }
   searchArticle(word: string) {

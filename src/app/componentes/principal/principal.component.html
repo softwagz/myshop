@@ -1,82 +1,56 @@
 <div class="container-fluid" id="principal">
-    <div class="container-fluid">
-        <div class="row" id="cabezera" style="font-family: serif;">
-            <div class="col-lg-6">
-                <h3>Bienvenido al Sistema <i class="fas fa-user-shield"></i></h3>
-            </div>
-            <div class="col-lg-6">
-            </div>
+    <div class="row animated fadeInDown" id="cabezera" style="font-family: serif;">
+        <div class="col-lg-12">
+            <h3>Bienvenido al Sistema <i class="fas fa-user-shield"></i></h3>
         </div>
     </div>
-    <div class="container-fluid" id="opciones">
-        <div class="row">
-            <div class="col-lg-3">
-                <a class="badge badge-warning" href="#" routerLink="/ventas">
-                    <i class="fas fa-comments-dollar fa-9x"></i>
-                    <br />
-                    <span class="badge badge-dark">Ventas</span>
-                </a>
-            </div>
-            <div class="col-lg-3">
-                <a class="badge badge-danger" href="#" routerLink="/clientes">
-                    <i class="fas fa-users fa-9x"></i>
-                    <br />
-                    <span class="badge badge-warning">Clientes</span>
-                </a>
-            </div>
-            <div class="col-lg-3">
-                <a class="badge badge-secondary" href="#" routerLink="/facturas">
-                    <i class="far fa-clipboard fa-9x"></i> <br />
-                    <span class="badge badge-warning">Facturas</span>
-                </a>
-            </div>
-            <div class="col-lg-3">
-                <a class="badge badge-success" href="#" routerLink="/inventario">
-                    <i class="fas fa-door-open fa-9x"></i> <br />
-                    <span class="badge badge-warning">Inventario</span>
-                </a>
-            </div>
-            <div class="col-lg-3">
-                <a class="badge badge-primary" href="#" routerLink="/proveedores">
-                    <i class="fas fa-shipping-fast fa-9x"></i> <br />
-                    <span class="badge badge-warning">Proveedores</span>
-                </a>
-            </div>
-            <div class="col-lg-3">
-                <a class="badge badge-dark" href="#" routerLink="/login" (click)="singOut()">
-                    <i class="fas fa-power-off fa-9x"></i> <br />
-                    <span class="badge badge-warning">Salir</span>
-                </a>
-            </div>
-            <div class="col-lg-6">
-                <a class="badge badge-warning texto" href="#" routerLink="/login">
-                    <h5>Selecciona una de las Opciones para <br> Comenzar</h5>
-                </a>
-            </div>
-
-
+    <div class="row animated fadeInLeft" id="opciones">
+        <div class="col-lg-3 animated fadeInRight delay-1s">
+            <a class="badge badge-success" href="#" routerLink="/inventario">
+                <i class="fas fa-door-open fa-9x"></i> <br />
+                <span class="badge badge-warning">Inventario</span>
+            </a>
         </div>
+        <div class="col-lg-3 animated fadeInRight delay-1s">
+            <a class="badge badge-secondary" href="#" routerLink="/facturas">
+                <i class="far fa-clipboard fa-9x"></i> <br />
+                <span class="badge badge-warning">Facturacion</span>
+            </a>
+        </div>
+        <div class="col-lg-3 animated fadeInRight delay-1s">
+            <a class="badge badge-warning" href="#" routerLink="/ventas">
+                <i class="fas fa-comments-dollar fa-9x"></i>
+                <br />
+                <span class="badge badge-dark">Ventas</span>
+            </a>
+        </div>
+        <div class="col-lg-3 animated fadeInRight delay-1s">
+            <a class="badge badge-danger" href="#" routerLink="/clientes">
+                <i class="fas fa-users fa-9x"></i>
+                <br />
+                <span class="badge badge-warning">Clientes</span>
+            </a>
+        </div>
+        <div class="col-lg-3 animated fadeInRight delay-1s">
+            <a class="badge badge-primary" href="#" routerLink="/proveedores">
+                <i class="fas fa-shipping-fast fa-9x"></i> <br />
+                <span class="badge badge-warning">Proveedores</span>
+            </a>
+        </div>
+        <div class="col-lg-3 animated fadeInRight delay-1s">
+            <a class="badge badge-dark" href="#" routerLink="/login" (click)="singOut()">
+                <i class="fas fa-power-off fa-9x"></i> <br />
+                <span class="badge badge-warning">Salir</span>
+            </a>
+        </div>
+        <div class="col-lg-6 animated fadeInRight delay-1s">
+            <a class="badge badge-warning texto" href="#" routerLink="/login">
+                <p>Selecciona una de las <br>Opciones para comenzar</p>
+            </a>
+        </div>
+
+
     </div>
-<!-- 
-    <div class="row">
-        <div class="col-md-7">
-            <h3> My Shop</h3>
-            <section style="text-align: justify;">
-                Este sistema esta pensado para pequeñas tiendas que deseen mejorar sus procesos de ventas e inventarios,
-                permite manejar las existencias en tiempo real,
-                realizar ventas y actualizar inventario, sencillo facil y rapido manejo. Ademas de aportar informacion
-                referente a las ganancias del mes y los productos mas destacados. Gracias por Elegirnos.
-            </section>
-        </div>
-        <div class="col-md-5">
-            <section>
 
-
-            </section>
-        </div>
-
-
-
-    </div> -->
 
 </div>

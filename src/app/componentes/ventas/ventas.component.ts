@@ -40,10 +40,11 @@ export class VentasComponent implements OnInit {
   totalGananciaCredito: number = 0;
   graficaStatus: boolean = false;
   montosTrimestre: ChartDataSets[] = [{ data: [0, 0, 0], label: 'Ventas del Trimestre Actual' }];
-  montosSemestre:  ChartDataSets[] = [{ data: [0, 0, 0,0,0,0], label: 'Ventas del Semestre Actual'}];
+  montosSemestre: ChartDataSets[] = [{ data: [0, 0, 0, 0, 0, 0], label: 'Ventas del Semestre Actual' }];
   montosAnual: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  label:Label[] = [];
+  label: Label[] = [];
   meses = ['Enero', 'Febrero', 'Marzon', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
   constructor(private toas: ToastrService, private auth: AngularFireAuth, private ventaService: VentasService) {
 
 
@@ -52,7 +53,7 @@ export class VentasComponent implements OnInit {
   ngOnInit() {
     this.cargarFacturasContado();
     this.cargarFacturasCredito();
-    $('#facturaContent').hide();
+    $('.facturaInf').hide();
     this.formAbono = new FormGroup({
       abono: new FormControl('', [Validators.required])
     });
@@ -293,7 +294,7 @@ export class VentasComponent implements OnInit {
         }
 
         if (this.facturaFilter.length == 0) {
-          Swal.fire('Resultado', 'No se han encontrado coincidencias', 'info');
+          Swal.fire('Resultado', 'No hay facturas para mostrar', 'info');
         }
 
       } else {
@@ -312,7 +313,7 @@ export class VentasComponent implements OnInit {
         }
 
         if (this.facturaFilterCredito.length == 0) {
-          Swal.fire('Resultado', 'No se han encontrado coincidencias', 'info');
+          Swal.fire('Resultado','No hay facturas para mostrar', 'info');
         }
 
       } else {
@@ -347,7 +348,7 @@ export class VentasComponent implements OnInit {
         }
 
         if (this.facturaFilter.length == 0) {
-          Swal.fire('Resultado', 'No se han encontrado coincidencias', 'info');
+          Swal.fire('Resultado', 'No hay facturas para mostrar', 'info');
         }
 
       } else {
@@ -367,7 +368,7 @@ export class VentasComponent implements OnInit {
         }
 
         if (this.facturaFilterCredito.length == 0) {
-          Swal.fire('Resultado', 'No se han encontrado coincidencias', 'info');
+          Swal.fire('Resultado', 'No hay facturas para mostrar', 'info');
         }
 
       } else {
@@ -444,9 +445,16 @@ export class VentasComponent implements OnInit {
 
 
   viewFactura(factura: any) {
-    $('#facturaContent').fadeOut('fast');
-    $('#facturaContent').fadeIn();
+    $(function(){
+      var position = $('#facturaContent').offset().top;
+      $("html, body").animate({
+        scrollTop: position
+      }, 300);
+    })
+    $('.facturaInf').fadeOut('fast');
+    $('.facturaInf').fadeIn();
     this.facturaSelected = factura;
+
   }
 
   construirGraficas(type?: number) {
@@ -501,7 +509,7 @@ export class VentasComponent implements OnInit {
         this.label[1] = this.meses[construirFecha(this.facturasContado[_i].fecha).getMonth()];
 
       }
-     
+
       if (construirFecha(this.facturasContado[_i].fecha).getMonth() == mes1 && construirFecha(this.facturasContado[_i].fecha).getFullYear() == annoActual) {
         acumuladorMes1 += this.facturasContado[_i].totalPagar;
         this.montosTrimestre[0].data[0] = acumuladorMes1;
@@ -509,9 +517,9 @@ export class VentasComponent implements OnInit {
 
       }
     }
-    for(var i = 0; i < this.label.length;i++){
-      if(this.label[i]==undefined){
-        this.label[i]="Sin Ventas para el año actual";
+    for (var i = 0; i < this.label.length; i++) {
+      if (this.label[i] == undefined) {
+        this.label[i] = "No Disponible";
       }
     }
 
@@ -522,7 +530,7 @@ export class VentasComponent implements OnInit {
 
   }
   graficaSemestral() {
-    
+
     var fechaActual: Date = new Date();
     var annoActual = fechaActual.getFullYear();
     var mes1 = fechaActual.getMonth() - 5;
@@ -585,9 +593,9 @@ export class VentasComponent implements OnInit {
       }
     }
 
-    for(var i = 0; i < this.label.length;i++){
-      if(this.label[i]==undefined){
-        this.label[i]="Sin Ventas para el año actual";
+    for (var i = 0; i < this.label.length; i++) {
+      if (this.label[i] == undefined) {
+        this.label[i] = "No Disponible";
       }
     }
 
@@ -597,7 +605,7 @@ export class VentasComponent implements OnInit {
 
   //Metodos de las graficas
 
-  public lineChartData: ChartDataSets[]=[
+  public lineChartData: ChartDataSets[] = [
     { data: [], label: 'Seleccione una Venta para Mostrar' }];
   /* 
   public lineChartData: ChartDataSets[] = [

@@ -9,6 +9,14 @@
 
 }
 
+.datosCliente {
+    padding-top: 20px;
+}
+
+.montos {
+    padding-top: 20px;
+}
+
 #menu{
     margin-top: 2px;
     padding-top: 6rem;
@@ -18,16 +26,63 @@
     background-size: cover;
 }
 
-#menu .items-menu ul{
-background-color: rgb(37, 0, 31);
+#menu .items-menu ul {
+    background-color: rgb(37, 0, 31);
+    list-style: none;
+    display: inline-flex;
+    border-radius: 5px;
 }
 
-#menu ul{
-    border-radius: 5px;
+#montosDia{
+    text-align: right;
 }
 
 #datosFactura{
     background-color: rgba(241, 238, 238, 0.212);
     border-radius: 10px;
     padding: 12px;
+}
+
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    /* deskopt */
+}
+
+@media (max-width: 767px) {
+    /* moviles horizontales y tables */
+    #menu .items-menu ul li {
+        font-size: medium;
+    }
+    #menu {
+        padding: 0;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+
+
+}
+
+@media(max-width:480px) {
+    /* moviles */
+    .textTable{
+        font-size: 10px;
+    }
+    .datosCliente {
+        border-top: rgb(114, 114, 114) 2px solid;
+    }
+    .montos{
+        border-top: rgb(114, 114, 114) 2px solid;
+
+
+    }    
+    #menu .items-menu ul li {
+        font-size: 13px;
+    }
+
+    .textSize{
+        font-size: 12px;
+    }
+    .contentDatosFactura{
+        margin-top: 100px auto;
+    }
 }
