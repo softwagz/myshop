@@ -48,7 +48,7 @@
             </ul>
         </div>
         <div class="col-md-7 text-center">
-            <h2 class="textCliente" >Clientes <i class="fas fa-users"></i></h2>
+            <h2 class="textCliente">Clientes <i class="fas fa-users"></i></h2>
         </div>
     </div>
 
@@ -159,8 +159,9 @@
                         <label class="custom-control-label" for="searchMode">Busqueda Nombre/Apellido</label>
                     </div>
                     <form #formularioBusqueda="ngForm" autocomplete="off" class="form-inline ml-auto">
-                        <input name="search" class="form-control mr-sm-2" (click)="clearSear()" (keyup)="searchClient(search)" type="search"
-                            [(ngModel)]="search" placeholder="{{tipoBusqueda}}" aria-label="Search">
+                        <input name="search" class="form-control mr-sm-2" (click)="clearSear()"
+                            (keyup)="searchClient(search)" type="search" [(ngModel)]="search"
+                            placeholder="{{tipoBusqueda}}" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="button"
                             (click)="searchClient(search)">Search</button>
                     </form>
@@ -169,42 +170,44 @@
             </nav>
             <div class="table-scroll custom-scroll">
 
-            <table class="table textTable table-responsive-sm table-light table-striped table-hover text-center">
-                <thead>
-                    <th class="">Identificacion</th>
-                    <th class="">Nombre</th>
-                    <th class="">Apellido</th>
-                    <th>Opciones</th>
-                </thead>
-                <tbody *ngIf="!statusfilter">
-                    <tr *ngFor="let datos of dataClientes">
-                        <td data-toggle="modal" data-target="#myModal" (click)="verCliente(datos)">
-                            {{datos.identificacion}}</td>
-                        <td data-toggle="modal" data-target="#myModal" (click)="verCliente(datos)"> {{datos.nombre}}
-                        </td>
-                        <td data-toggle="modal" data-target="#myModal" (click)="verCliente(datos)"> {{datos.apellido}}
-                        </td>
-                        <td (click)="deleteCliente(datos.id) "><span class="badge badge-warning btn">Eliminar</span>
-                        </td>
-                    </tr>
-                </tbody>
-                <tbody *ngIf="statusfilter">
-                    <tr *ngFor="let datos of filterCliente">
-                        <td data-toggle="modal" data-target="#myModal" (click)="verCliente(datos)">
-                            {{datos.identificacion}}</td>
-                        <td data-toggle="modal" data-target="#myModal" (click)="verCliente(datos)"> {{datos.nombre}}
-                        </td>
-                        <td data-toggle="modal" data-target="#myModal" (click)="verCliente(datos)"> {{datos.apellido}}
-                        </td>
-                        <td (click)="deleteCliente(datos.id) "><span class="badge badge-warning btn">Eliminar</span>
-                        </td>
-                    </tr>
-                    <tr *ngIf="!searched">
-                        <td> No se ha encontrado ninguna coincidencia</td>
-                    </tr>
-                </tbody>
+                <table class="table textTable table-responsive-sm table-light table-striped table-hover text-center">
+                    <thead>
+                        <th class="">Identificacion</th>
+                        <th class="">Nombre</th>
+                        <th class="">Apellido</th>
+                        <th>Opciones</th>
+                    </thead>
+                    <tbody *ngIf="!statusfilter">
+                        <tr *ngFor="let datos of dataClientes">
+                            <td data-toggle="modal" data-target="#myModal" (click)="verCliente(datos)">
+                                {{datos.identificacion}}</td>
+                            <td data-toggle="modal" data-target="#myModal" (click)="verCliente(datos)"> {{datos.nombre}}
+                            </td>
+                            <td data-toggle="modal" data-target="#myModal" (click)="verCliente(datos)">
+                                {{datos.apellido}}
+                            </td>
+                            <td (click)="deleteCliente(datos.id) "><span class="badge badge-warning btn">Eliminar</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="statusfilter">
+                        <tr *ngFor="let datos of filterCliente">
+                            <td data-toggle="modal" data-target="#myModal" (click)="verCliente(datos)">
+                                {{datos.identificacion}}</td>
+                            <td data-toggle="modal" data-target="#myModal" (click)="verCliente(datos)"> {{datos.nombre}}
+                            </td>
+                            <td data-toggle="modal" data-target="#myModal" (click)="verCliente(datos)">
+                                {{datos.apellido}}
+                            </td>
+                            <td (click)="deleteCliente(datos.id) "><span class="badge badge-warning btn">Eliminar</span>
+                            </td>
+                        </tr>
+                        <tr *ngIf="!searched">
+                            <td> No se ha encontrado ninguna coincidencia</td>
+                        </tr>
+                    </tbody>
 
-            </table>
+                </table>
             </div>
         </div>
     </div>
